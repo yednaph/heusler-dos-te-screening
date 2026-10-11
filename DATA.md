@@ -13,5 +13,5 @@ Shipped and sufficient for the analyses in `paper/manuscript_v1/analysis` and `l
 `paper/manuscript_v1/analysis/*.csv` and the small CSVs in `paper/manuscript_v1/figures/data/`.
 
 Software: Quantum ESPRESSO 7.1 (PBE, SSSP efficiency; fully relativistic PSlibrary for SOC), BoltzTraP2 24.7.2 (with
-`CMS/anchor/boltztrap2_patch`), ALIGNN with PyTorch 2.2.2 + CUDA 12.1 on Python 3.11 (ALIGNN and DGL versions were not recorded in the
-run metadata).
+`CMS/anchor/boltztrap2_patch`), ALIGNN 2026.4.1 with PyTorch 2.2.2 + CUDA 12.1, DGL 1.1.3+cu121, jarvis-tools 2026.4.2, NumPy 1.26.4 on
+Python 3.11.15 (recorded in the export's `environment/key_versions.json`; pymatgen version not recorded).
