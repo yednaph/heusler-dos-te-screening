@@ -1,0 +1,7 @@
+,0
+best_epoch,2.0
+swa_start,120.0
+train_loss_first,0.0667325481772422
+train_loss_last,0.0342038832604885
+val_loss_first,0.0497016794979572
+val_loss_last,0.0577573105692863

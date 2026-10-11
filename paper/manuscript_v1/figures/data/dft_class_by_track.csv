@@ -1,0 +1,5 @@
+data_set,gapped,half_metal,metal,narrow,All
+ambiguous,0,2,40,0,42
+prediction,241,16,1727,37,2021
+training,334,37,1115,76,1562
+All,575,55,2882,113,3625

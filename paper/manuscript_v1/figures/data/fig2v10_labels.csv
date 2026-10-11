@@ -1,0 +1,7 @@
+set,label,n,share
+training,semiconductor,1550,0.030239772128684863
+training,half_metal,962,0.018768168250190218
+training,metal,48745,0.9509920596211249
+prediction,semiconductor,2394,0.04354469060351413
+prediction,half_metal,473,0.00860344137655062
+prediction,metal,52111,0.9478518680199353

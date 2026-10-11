@@ -1,0 +1,8 @@
+group,class,n,n_orthorhombic_flag
+8 on the first Pareto layer,established,1,0
+8 on the first Pareto layer,experimentally investigated,1,0
+8 on the first Pareto layer,computationally investigated,6,4
+all 80 certified compositions,established,10,0
+all 80 certified compositions,experimentally investigated,9,0
+all 80 certified compositions,computationally investigated,60,19
+all 80 certified compositions,underexplored,1,0

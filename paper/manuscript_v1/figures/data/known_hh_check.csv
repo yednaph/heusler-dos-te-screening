@@ -1,0 +1,12 @@
+name,composition,computed,sets,certified_sets,qe_gap_eV,outcome
+TiNiSn,NiTiSn,True,P+T,P+T,0.46,certified
+ZrNiSn,NiZrSn,True,P+T,P+T,0.51,certified
+HfNiSn,NiHfSn,True,P+T,-,0.39,SOC PF/$\tau$ 1.046 below threshold
+TiCoSb,CoTiSb,True,P+T,P+T,1.08,certified
+ZrCoSb,CoZrSb,True,P+T,P+T,1.08,certified
+HfCoSb,CoHfSb,True,P+T,P+T,1.15,certified
+VFeSb,FeVSb,True,P+T,P+T,0.4,certified
+NbFeSb,FeNbSb,True,P+T,P+T,0.6,certified
+TaFeSb,FeTaSb,True,P+T,P+T,0.93,certified
+NbCoSn,CoNbSn,True,P+T,P+T,1.04,certified
+ZrCoBi,CoZrBi,True,P+T,P+T,1.0,certified

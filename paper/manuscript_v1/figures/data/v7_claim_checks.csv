@@ -1,0 +1,10 @@
+claim,value,source
+"prediction entries without same-family sibling (all tetragonal, cubic sibling exists)",3875,DXMag xlsx + set membership
+share of prediction entries with sibling differing in |M| by >0.1 muB/f.u.,0.4848,DXMag xlsx
+share of prediction entries with sibling listed in a larger cell,0.0899,DXMag xlsx
+entries with phonon results (training / prediction),8198 / 0,DXMag xlsx
+semiconductor labels with zero gap width (training / prediction),541 / 1156,gapfix screen files
+prediction-only certified compositions whose training entry failed SOC,5,paper_dataset.pkl
+"epoch of best.pt, full cubic fold0 / fold1",0 / 2,output/full_cubic/expA/*/checkpoints/best.pt
+float values stored in a deployed checkpoint (+53 int64 counters),42572954,DOS_EXPORT/checkpoints/full_tetra/fold0
+output-head parameters,10824610,train_hpc.py:363-371 (layer sizes)

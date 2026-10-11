@@ -1,0 +1,3 @@
+set,semiconductor_labelled_runs,metal_runs,metal_share
+training,1170,738,0.6307692307692307
+prediction,1972,1678,0.8509127789046653

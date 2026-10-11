@@ -1,0 +1,6 @@
+OK   DFT class == DFT_verdict
+OK   gap == DFT_band_gap_eV
+OK   best PF/tau == BT2_best_PF_over_tau
+OK   winner == VERDICT_PF_winner
+OK   certified == VERDICT_certified
+counts: runs 3625, winners 309, gapped winners 201, certified entries 155, certified compounds 80

@@ -1,0 +1,15 @@
+data_set,lab,gapped,half_metal,metal,narrow
+prediction,0.10–0.40,78,4,147,16
+prediction,0.40–1.00,123,0,140,10
+prediction,1.00–1.40,35,0,33,0
+prediction,<0.10,4,12,1106,11
+prediction,>1.40,1,0,252,0
+prediction,half-metal,0,0,2,0
+prediction,metal,0,0,47,0
+training,0.10–0.40,91,14,188,38
+training,0.40–1.00,194,0,55,17
+training,1.00–1.40,43,0,21,0
+training,<0.10,1,9,471,20
+training,>1.40,5,0,3,0
+training,half-metal,0,8,6,0
+training,metal,0,6,371,1

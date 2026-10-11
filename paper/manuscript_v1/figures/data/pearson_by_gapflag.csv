@@ -1,0 +1,7 @@
+,pearson_r,pearson_r,fermi_pearson_2eV,fermi_pearson_2eV
+,size,median,size,median
+cm,,,,
+"gapped, flagged",778,0.8781599402427673,778,0.836078405380249
+"gapped, missed",4352,0.9090203940868378,4352,0.8889298439025879
+"not gapped, flagged",651,0.8297280073165894,651,0.710586428642273
+"not gapped, not flagged",45476,0.9120471477508545,45476,0.8664577603340149

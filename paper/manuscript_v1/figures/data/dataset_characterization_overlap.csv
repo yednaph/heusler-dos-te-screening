@@ -1,0 +1,15 @@
+key,key_meaning,family,prediction_entries,n_in_training_any_family,share_in_training_any_family,n_in_training_same_family,share_in_training_same_family,n_within_1meV_same_family,share_within_1meV_same_family_of_all,share_within_1meV_same_family_of_with_sibling,n_within_1meV_any_family,share_within_1meV_any_family_of_all,share_within_10meV_same_family_of_all,dE_above_lowest_sibling_median_meV,dE_above_lowest_sibling_min_meV,n_below_lowest_sibling
+composition,site-ordered DXMag composition string,full_cubic,4504,4504,1,4504,1,2002,0.444494,0.444494,2026,0.449822,0.78841,1.23435,2.75e-05,0
+composition,site-ordered DXMag composition string,full_tetra,13479,13479,1,12079,0.896135,465,0.0344981,0.0384966,2121,0.157356,0.123155,54.2764,0.00384,0
+composition,site-ordered DXMag composition string,half_cubic,4914,4914,1,4914,1,2229,0.453602,0.453602,2229,0.453602,0.827432,1.20338,1.66667e-05,0
+composition,site-ordered DXMag composition string,half_tetra,10896,10896,1,9290,0.852606,523,0.0479993,0.0562971,1925,0.17667,0.153726,70.6556,0.00328333,0
+composition,site-ordered DXMag composition string,inverse_cubic,6702,6702,1,6702,1,2575,0.384214,0.384214,2600,0.387944,0.670845,1.70725,1.5e-05,0
+composition,site-ordered DXMag composition string,inverse_tetra,14483,14483,1,13614,0.939999,497,0.0343161,0.0365065,2469,0.170476,0.104674,69.8086,0.00146125,0
+composition,site-ordered DXMag composition string,all,54978,54978,1,51103,0.929517,8291,0.150806,0.162241,13370,0.243188,0.30856,32.2602,1.5e-05,0
+red,order-independent reduced formula,full_cubic,4504,4504,1,4504,1,2002,0.444494,0.444494,2026,0.449822,0.78841,1.23435,2.75e-05,0
+red,order-independent reduced formula,full_tetra,13479,13479,1,12079,0.896135,465,0.0344981,0.0384966,2121,0.157356,0.123155,54.2764,0.00384,0
+red,order-independent reduced formula,half_cubic,4914,4914,1,4914,1,2234,0.454619,0.454619,2235,0.454823,0.829467,6.52031,1.66667e-05,0
+red,order-independent reduced formula,half_tetra,10896,10896,1,10387,0.953286,541,0.0496512,0.0520843,1948,0.178781,0.165565,115.486,-622.06,772
+red,order-independent reduced formula,inverse_cubic,6702,6702,1,6702,1,2575,0.384214,0.384214,2600,0.387944,0.670845,1.70725,1.5e-05,0
+red,order-independent reduced formula,inverse_tetra,14483,14483,1,13614,0.939999,497,0.0343161,0.0365065,2469,0.170476,0.104674,69.8086,0.00146125,0
+red,order-independent reduced formula,all,54978,54978,1,52200,0.949471,8314,0.151224,0.159272,13399,0.243716,0.311088,43.2219,-622.06,772

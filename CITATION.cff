@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the manuscript below (in preparation) and the DXMag database."
+title: "Density-of-states screening of Heusler thermoelectrics across compositions and structural variants, assessed by first-principles transport"
+version: "1.0.0"
+date-released: "2026-10-11"
+license: MIT
+authors:
+  - family-names: Randive
+    given-names: Shivam
+    affiliation: "Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
+  - family-names: Pandey
+    given-names: Himanshu
+    affiliation: "Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
+  - family-names: Dixit
+    given-names: Rahul
+    affiliation: "Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
+  - family-names: Ghosh
+    given-names: Ayana
+    affiliation: "Indian Institute of Technology Madras, Chennai, India"
+references:
+  - type: article
+    title: "High-throughput computational screening of Heusler compounds with phonon considerations for enhanced material discovery"
+    authors: [{family-names: Xiao, given-names: Enda}, {family-names: Tadano, given-names: Terumasa}]
+    journal: "Acta Materialia"
+    volume: 297
+    year: 2025
+    doi: "10.1016/j.actamat.2025.121312"
+  - type: dataset
+    title: "HeuslerDB_elecDOS_ver1.0"
+    authors: [{family-names: Tadano, given-names: Terumasa}]
+    year: 2025
+    doi: "10.48505/nims.5794"

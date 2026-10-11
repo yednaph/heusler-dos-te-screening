@@ -1,0 +1,16 @@
+set,score,fraction_kept,certified_recovered
+training,A_seebeck,0.1,0.3157894736842105
+training,A_seebeck,0.2,0.75
+training,A_seebeck,0.3,0.9078947368421053
+training,B_pf,0.1,0.06578947368421052
+training,B_pf,0.2,0.19736842105263158
+training,B_pf,0.3,0.47368421052631576
+prediction,A_seebeck,0.1,0.7088607594936709
+prediction,A_seebeck,0.2,0.9113924050632911
+prediction,A_seebeck,0.3,0.9873417721518988
+prediction,B_pf,0.1,0.37468354430379774
+prediction,B_pf,0.2,0.7974683544303798
+prediction,B_pf,0.3,0.9746835443037974
+prediction,D34_july,0.1,0.46329113924050663
+prediction,D34_july,0.2,0.759493670886076
+prediction,D34_july,0.3,0.8987341772151899

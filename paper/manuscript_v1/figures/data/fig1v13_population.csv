@@ -1,0 +1,7 @@
+family,train_ground,train_metastable,pred_family_min,pred_metastable
+full_cubic,1349,8047,0,4504
+full_tetra,8047,0,908,12571
+half_cubic,2487,6909,0,4914
+half_tetra,6909,0,1190,9706
+inverse_cubic,631,8441,0,6702
+inverse_tetra,8437,0,497,13986

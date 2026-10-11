@@ -1,0 +1,32 @@
+# Allowlist: this repository is assembled by stage_repo_v1.py; anything else is ignored by default.
+*
+!*/
+!.gitignore
+!LICENSE
+!README.md
+!DATA.md
+!CITATION.cff
+!requirements.txt
+!**/.gitkeep
+!train_hpc.py
+!config.yaml
+!make_dos_export.py
+!configs/**
+!code/**
+!CMS/**
+!figkit/**
+!paper/**
+!results/**
+# never
+**/__pycache__/
+*.pyc
+*.pt
+*.pth
+*.npy
+*.npz
+*.zip
+*.tar.gz
+*.UPF
+*.bt2
+out/
+*.save/

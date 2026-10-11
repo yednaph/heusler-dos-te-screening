@@ -1,0 +1,7 @@
+,training,prediction
+computed,1562,2021
+dopable |S|>60 µV/K,718,436
++ above PF bar (4),631,382
++ hull < 0.1 (2),163,146
+"+ DFT-gapped (3, 5)",102,99
++ SOC if Z≥72 (6),76,79

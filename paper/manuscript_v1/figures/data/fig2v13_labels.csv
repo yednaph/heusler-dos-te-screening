@@ -1,0 +1,5 @@
+example,spectrum,label,dDOS_gap_eV,spin_pol
+ZrNiSn,DFT,semiconductor,0.72,0.0
+ZrNiSn,model,semiconductor,1.1,0.012197392888293754
+Co$_2$MnSi,DFT,half_metal,0.0,0.9988972611187503
+Co$_2$MnSi,model,metal,0.0,0.8678411042617943

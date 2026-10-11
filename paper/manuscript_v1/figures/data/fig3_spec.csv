@@ -1,0 +1,14 @@
+,0
+cutoff_A,8.0
+max_neighbors,12
+node_features,97
+edge_rbf,80
+angle_rbf,40
+embedding,64
+hidden,512
+alignn_layers,8
+gcn_layers,8
+head,512-1024-2048-4002
+dropout,0.2
+outputs,4002
+trainable_params,42520354

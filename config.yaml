@@ -1,0 +1,232 @@
+# Full Cubic Heusler - ALIGNN DOS Training Configuration
+# Configured for HPC deployment
+#
+# Expected training time: 10-20 hours on GPU
+# Target performance: Pearson ≥ 0.95, RMSE < 0.03
+
+#==============================================================================
+# Model Architecture
+#==============================================================================
+
+model:
+  alignn_layers: 8               # Increased encoder capacity
+  gcn_layers: 8
+  hidden_dim: 512
+  embedding_features: 512
+  output_dim: 4002               # d-projected spin-resolved DOS
+  atom_input_features: 97        # 92 base CGCNN (one-hot, 92 elements) + 5 Heusler-specific
+  dropout: 0.2
+  deep_output_head: true         # MLP: 512→1024→2048→4002 (replaces single Linear)
+  link_type: 'all'
+  atom_features: 'cgcnn'
+
+#==============================================================================
+# Training Configuration
+#==============================================================================
+
+training:
+  # Batch size - H100 NVL has 94GB VRAM; 128 is conservative and safe
+  batch_size: 128                # SVNIT Aurora: H100 NVL 94GB (increase to 256 after smoke test)
+
+  # Training duration
+  num_epochs: 300
+
+  # Learning rate
+  learning_rate: 0.001
+
+  # Mixed precision — disabled: small model (13M) is stable in fp32
+  mixed_precision: false
+  precision: 'fp32'
+
+  # BTE thermal window operating temperature for ThermoelectricDOSLoss.
+  # NOTE (provenance): 700 K is an ASSUMED mid-range operating temperature for
+  # half-Heusler thermoelectrics (their peak ZT typically falls ~600-900 K). It
+  # is a MODELING CHOICE of this project — NOT taken from the DOS source paper
+  # (Xiao & Tadano, Acta Mater.), which does phonon/magnetic screening and no
+  # thermoelectrics. Kept consistent between the training loss and TE screening;
+  # sets the TE-screening thermal blur width sigma = k_B*T = 0.060 eV.
+  screening_temperature: 700     # K — assumed half-Heusler TE operating temperature
+                                 # Used for Fermi-Dirac derivative BTE weight
+
+  # Gradient clipping (max_norm=1.0 prevents NaN spikes from 4002-dim spectral output head)
+  grad_clip: 1.0
+
+  # Validation frequency
+  val_every_n_epochs: 1          # Validate every epoch
+
+  # Save checkpoints
+  save_every_n_epochs: 50        # Save checkpoint every 50 epochs
+  save_best_only: false          # Also save periodic checkpoints
+
+  # Stochastic Weight Averaging (SWA)
+  swa_start_fraction: 0.80       # Begin averaging weights at 80% of total epochs
+
+#==============================================================================
+# Data Configuration
+#==============================================================================
+
+data:
+  # Data paths - Updated for Shivam_ALIGNN_Training structure
+  cif_dir: "data/cif/"                          # CIF structure files
+  dos_dir: "data/dos_json/"                     # DOS JSON files
+  train_file: "data/data_split/train_ids.csv"
+  val_file: "data/data_split/val_ids.csv"
+  test_file: "data/data_split/test_ids.csv"
+
+  # Data loading
+  num_workers: 4                 # 4 workers × 2 loaders = 8 threads total, matching --cpus-per-task=8
+  prefetch_factor: 2             # Batches to prefetch per worker
+  pin_memory: true               # Pin memory for faster GPU transfer
+  persistent_workers: true       # Keep workers alive between epochs
+
+  # Data augmentation
+  augmentation:
+    enabled: true
+    prob: 0.5                    # 50% probability per sample
+    cell_perturb: 0.03           # Lattice perturbation ±3%
+    pos_perturb: 0.05            # Atomic position noise 0.05 Å
+
+#==============================================================================
+# Optimizer Configuration
+#==============================================================================
+
+optimizer:
+  type: 'AdamW'
+  weight_decay: 0.00005           # 5e-5 — stronger regularization for 6+6 model
+  betas: [0.9, 0.999]
+  eps: 0.00000001
+
+#==============================================================================
+# Learning Rate Scheduler
+#==============================================================================
+
+scheduler:
+  type: 'ReduceLROnPlateau'
+  mode: 'min'
+  factor: 0.5
+  patience: 25
+  min_lr: 0.0000001
+  warmup_epochs: 10
+
+#==============================================================================
+# Loss Function
+#==============================================================================
+
+loss:
+  type: 'ThermoelectricDOSLoss'
+  # Heavy Fermi weighting — deep MLP head + high w_fermi pushes Fermi Pearson > 90%
+  w_mse:    0.35   # Global shape
+  w_cosine: 0.15   # Spectral shape scale-invariant
+  w_fermi:  0.35   # Fermi window ±2eV — INCREASED for Fermi Pearson > 90%
+  w_slope:  0.10   # Mott formula slope at E_F
+  w_wass:   0.05   # Peak positions
+  w_peak:   0.00
+  w_tv:     0.00
+  peak_height_gamma: 2.5
+  n_components: 5
+
+#==============================================================================
+# Distributed Training (Not used for single GPU)
+#==============================================================================
+
+distributed:
+  enabled: false                 # Single GPU - no DDP
+  backend: 'nccl'                # NCCL backend for multi-GPU
+  gradient_as_bucket_view: true  # Memory optimization
+
+#==============================================================================
+# Checkpointing
+#==============================================================================
+
+checkpointing:
+  # Auto-resume from last checkpoint if exists
+  auto_resume: true
+
+  # Keep best N checkpoints
+  keep_best_n: 3
+
+  # Checkpoint metric (for "best" checkpoint)
+  monitor_metric: 'val_pearson'
+  monitor_mode: 'max'            # Maximize Pearson correlation
+
+#==============================================================================
+# Logging and Monitoring
+#==============================================================================
+
+logging:
+  # TensorBoard logging
+  tensorboard: true
+  tensorboard_dir: 'output/logs/tensorboard'
+
+  # Weights & Biases (optional - set enabled: true if using)
+  wandb:
+    enabled: false
+    project: 'alignn-dos-heusler'
+    entity: null                 # Your W&B username/team
+    name: null                   # Run name (auto-generated if null)
+    tags: ['full-cubic', 'heusler', 'alignn']
+
+  # Log frequency
+  log_every_n_steps: 10          # Log training metrics every N steps
+
+  # Console verbosity
+  verbose: true
+
+#==============================================================================
+# Reproducibility
+#==============================================================================
+
+reproducibility:
+  seed: 42                       # Random seed
+  deterministic: false           # Set true for full reproducibility (slower)
+  benchmark: true                # CUDA benchmark mode (faster, less reproducible)
+
+#==============================================================================
+# Performance Optimization
+#==============================================================================
+
+performance:
+  # Gradient accumulation (if batch size limited by memory)
+  gradient_accumulation_steps: 1  # Effective batch = batch_size × this
+
+  # Gradient checkpointing (saves memory, slower)
+  gradient_checkpointing: false   # Only enable if OOM
+
+  # Compiled model (PyTorch 2.0+)
+  compile_model: false            # torch.compile (experimental)
+
+  # AMP autocast
+  amp_autocast: true              # Automatic mixed precision
+
+#==============================================================================
+# Early Stopping (Optional)
+#==============================================================================
+
+early_stopping:
+  enabled: true
+  patience: 30                   # Stop if val Pearson no improvement for 30 epochs
+  min_delta: 0.001
+  monitor: 'val_pearson'
+  mode: 'max'
+
+#==============================================================================
+# Validation and Testing
+#==============================================================================
+
+validation:
+  # Compute additional metrics
+  compute_metrics: true
+  metrics: ['pearson', 'rmse', 'mae', 'r2']
+
+  # Save validation predictions
+  save_predictions: true
+  predictions_file: 'output/results/val_predictions.csv'
+
+#==============================================================================
+# Model Export (After Training)
+#==============================================================================
+
+export:
+  # Export formats
+  onnx: false                    # Export to ONNX format
+  torchscript: false             # Export to TorchScript

@@ -1,0 +1,17 @@
+# Analysis, screening and figures (verified: Python 3.8.10)
+numpy==1.24.4
+pandas==2.0.3
+scipy==1.10.1
+matplotlib>=3.7,<3.9
+openpyxl==3.1.5
+PyYAML>=5.3
+# First-principles transport (CMS/anchor/): BoltzTraP2==24.7.2 plus Quantum ESPRESSO 7.1 (not pip-installable)
+# BoltzTraP2==24.7.2
+# ALIGNN d-DOS model (train_hpc.py, code/run_inference.py): recorded torch 2.2.2+cu121 on Python 3.11;
+# alignn, dgl and pymatgen versions were not recorded -- install versions compatible with torch 2.2.
+# torch==2.2.2
+# alignn
+# dgl
+# pymatgen
+# tqdm
+# tensorboard

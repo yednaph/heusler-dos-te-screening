@@ -1,0 +1,71 @@
+  data_set          subset     score    n  positives  base_rate  ROC_AUC  PR_AUC  captured_top10pct  captured_top20pct  captured_top30pct
+prediction    all computed A_seebeck 2016         79      0.039    0.938   0.340              0.709              0.911              0.987
+prediction    all computed      B_pf 2016         79      0.039    0.877   0.137              0.375              0.797              0.975
+prediction    all computed   C_sharp 2016         79      0.039    0.852   0.152              0.527              0.759              0.886
+prediction    all computed D_dosmass 2016         79      0.039    0.792   0.117              0.177              0.380              0.719
+prediction    all computed  D34_july 2016         79      0.039    0.869   0.168              0.463              0.759              0.899
+prediction    all computed  VEC_rule 2016         79      0.039    0.891   0.157              0.402              0.803              1.000
+prediction    all computed    random 2016         79      0.039    0.494   0.039              0.114              0.203              0.278
+prediction half_cubic only A_seebeck  438         74      0.169    0.799   0.407              0.297              0.500              0.676
+prediction half_cubic only      B_pf  438         74      0.169    0.690   0.240              0.081              0.311              0.486
+prediction half_cubic only   C_sharp  438         74      0.169    0.664   0.253              0.135              0.378              0.541
+prediction half_cubic only D_dosmass  438         74      0.169    0.607   0.246              0.135              0.189              0.311
+prediction half_cubic only  D34_july  438         74      0.169    0.664   0.241              0.135              0.351              0.405
+prediction half_cubic only  VEC_rule  438         74      0.169    0.641   0.221              0.131              0.261              0.392
+prediction half_cubic only    random  438         74      0.169    0.469   0.160              0.095              0.203              0.276
+prediction  VEC 18/24 only A_seebeck  502         79      0.157    0.808   0.407              0.304              0.544              0.709
+prediction  VEC 18/24 only      B_pf  502         79      0.157    0.688   0.232              0.101              0.291              0.463
+prediction  VEC 18/24 only   C_sharp  502         79      0.157    0.672   0.240              0.127              0.380              0.544
+prediction  VEC 18/24 only D_dosmass  502         79      0.157    0.585   0.239              0.152              0.177              0.316
+prediction  VEC 18/24 only  D34_july  502         79      0.157    0.736   0.306              0.241              0.385              0.570
+prediction  VEC 18/24 only  VEC_rule  502         79      0.157    0.500   0.157              0.100              0.200              0.300
+prediction  VEC 18/24 only    random  502         79      0.157    0.477   0.152              0.114              0.190              0.273
+  training    all computed A_seebeck 1562         76      0.049    0.869   0.158              0.316              0.750              0.908
+  training    all computed      B_pf 1562         76      0.049    0.649   0.064              0.066              0.197              0.474
+  training    all computed   C_sharp 1562         76      0.049    0.687   0.081              0.158              0.421              0.579
+  training    all computed D_dosmass 1562         76      0.049    0.557   0.054              0.079              0.105              0.171
+  training    all computed  VEC_rule 1562         76      0.049    0.858   0.153              0.314              0.627              0.941
+  training    all computed    random 1562         76      0.049    0.574   0.075              0.200              0.329              0.421
+  training half_cubic only A_seebeck  614         70      0.114    0.765   0.202              0.114              0.340              0.643
+  training half_cubic only      B_pf  614         70      0.114    0.618   0.138              0.071              0.171              0.414
+  training half_cubic only   C_sharp  614         70      0.114    0.600   0.148              0.143              0.300              0.443
+  training half_cubic only D_dosmass  614         70      0.114    0.565   0.149              0.100              0.129              0.217
+  training half_cubic only  VEC_rule  614         70      0.114    0.732   0.193              0.170              0.339              0.509
+  training half_cubic only    random  614         70      0.114    0.541   0.151              0.143              0.229              0.343
+  training  VEC 18/24 only A_seebeck  498         76      0.153    0.805   0.337              0.261              0.513              0.645
+  training  VEC 18/24 only      B_pf  498         76      0.153    0.557   0.159              0.066              0.145              0.321
+  training  VEC 18/24 only   C_sharp  498         76      0.153    0.596   0.190              0.116              0.289              0.466
+  training  VEC 18/24 only D_dosmass  498         76      0.153    0.474   0.163              0.105              0.139              0.224
+  training  VEC 18/24 only  VEC_rule  498         76      0.153    0.500   0.153              0.100              0.200              0.300
+  training  VEC 18/24 only    random  498         76      0.153    0.567   0.225              0.182              0.303              0.400
+
+# paired bootstrap of AUC differences (2,000 resamples, seed 0)
+  data_set         subset           comparison    n  positives  delta_AUC  CI95_low  CI95_high  frac_le_0  resamples
+prediction   all computed     A_seebeck - B_pf 2016         79      0.061     0.047      0.076      0.000       2000
+prediction   all computed A_seebeck - D34_july 2016         79      0.068     0.038      0.101      0.000       2000
+prediction   all computed A_seebeck - VEC_rule 2016         79      0.047     0.029      0.063      0.000       2000
+prediction   all computed  A_seebeck - C_sharp 2016         79      0.085     0.053      0.124      0.000       2000
+prediction VEC 18/24 only     A_seebeck - B_pf  502         79      0.120     0.081      0.159      0.000       2000
+prediction VEC 18/24 only A_seebeck - D34_july  502         79      0.072     0.007      0.133      0.014       2000
+prediction VEC 18/24 only  A_seebeck - C_sharp  502         79      0.136     0.086      0.186      0.000       2000
+  training   all computed     A_seebeck - B_pf 1562         76      0.221     0.171      0.267      0.000       2000
+  training   all computed A_seebeck - VEC_rule 1562         76      0.011    -0.011      0.035      0.170       2000
+  training   all computed  A_seebeck - C_sharp 1562         76      0.183     0.134      0.238      0.000       2000
+  training VEC 18/24 only     A_seebeck - B_pf  498         76      0.248     0.178      0.317      0.000       2000
+  training VEC 18/24 only  A_seebeck - C_sharp  498         76      0.208     0.137      0.277      0.000       2000
+
+# prime window
+  data_set                    subset     score   n  positives  base_rate  ROC_AUC  PR_AUC  captured_top10pct  captured_top20pct  captured_top30pct
+prediction prime window 0.10-1.40 eV A_seebeck 586         79      0.135    0.836   0.406              0.354              0.597              0.770
+prediction prime window 0.10-1.40 eV      B_pf 586         79      0.135    0.751   0.248              0.139              0.395              0.557
+prediction prime window 0.10-1.40 eV   C_sharp 586         79      0.135    0.714   0.243              0.190              0.468              0.580
+prediction prime window 0.10-1.40 eV D_dosmass 586         79      0.135    0.691   0.269              0.172              0.291              0.380
+prediction prime window 0.10-1.40 eV  D34_july 586         79      0.135    0.774   0.304              0.291              0.481              0.620
+prediction prime window 0.10-1.40 eV  VEC_rule 586         79      0.135    0.712   0.213              0.158              0.316              0.474
+prediction prime window 0.10-1.40 eV    random 586         79      0.135    0.469   0.128              0.114              0.190              0.251
+  training prime window 0.10-1.40 eV A_seebeck 661         76      0.115    0.829   0.350              0.355              0.605              0.724
+  training prime window 0.10-1.40 eV      B_pf 661         76      0.115    0.550   0.117              0.039              0.118              0.228
+  training prime window 0.10-1.40 eV   C_sharp 661         76      0.115    0.560   0.128              0.054              0.211              0.382
+  training prime window 0.10-1.40 eV D_dosmass 661         76      0.115    0.522   0.143              0.092              0.132              0.237
+  training prime window 0.10-1.40 eV  VEC_rule 661         76      0.115    0.754   0.209              0.182              0.363              0.545
+  training prime window 0.10-1.40 eV    random 661         76      0.115    0.574   0.172              0.224              0.316              0.408

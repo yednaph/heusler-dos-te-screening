@@ -1,0 +1,3 @@
+all computed: entries 3579 -> distinct crystals ~3103 (prediction entries with a training twin: 475; max dE among twins 4.78 meV/atom, max dV 0.86 %)
+certified: entries 155 -> distinct crystals ~81 (prediction entries with a training twin: 79; max dE among twins 1.73 meV/atom, max dV 0.20 %)
+certified compounds by sets: {('prediction', 'training'): 74, ('prediction',): 5, ('training',): 1}

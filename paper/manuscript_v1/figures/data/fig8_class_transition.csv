@@ -1,0 +1,4 @@
+dft_class,gapped,narrow,metal
+gapped,264,10,23
+narrow,0,11,31
+metal,1,11,256

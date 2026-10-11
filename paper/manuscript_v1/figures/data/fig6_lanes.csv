@@ -1,0 +1,11 @@
+set,lane,n,median_top_fraction
+training,metal,1115,0.13605946504867625
+training,half_metal,37,0.06500575531146965
+training,narrow,76,0.07056597147706659
+training,gapped,258,0.01513939559474805
+training,certified,76,0.006916128528786336
+prediction,metal,1722,0.7391047328022118
+prediction,half_metal,16,0.022863690930917783
+prediction,narrow,37,0.053821528611444625
+prediction,gapped,162,0.007875877623776787
+prediction,certified,79,0.0022008803521408357

@@ -1,0 +1,32 @@
+# Half Cubic Heusler - ALIGNN DOS Training Configuration
+# Dataset: Half Heusler compounds in cubic structure
+# Expected: ~7,000-10,000 materials
+# SVNIT Aurora: H100 NVL 94GB VRAM
+
+# Training overrides for SVNIT Aurora H100 NVL
+training:
+  batch_size: 128                # H100 NVL 94GB (increase to 256 after smoke test)
+
+data:
+  dos_dir: "data/half_cubic/dos_json/"
+  train_file: "data/half_cubic/data_split/train_ids.csv"
+  val_file: "data/half_cubic/data_split/val_ids.csv"
+  test_file: "data/half_cubic/data_split/test_ids.csv"
+  num_workers: 4
+  prefetch_factor: 2
+  pin_memory: true
+  persistent_workers: true
+
+output_dir: "output/half_cubic/"
+
+logging:
+  tensorboard: true
+  tensorboard_dir: "output/half_cubic/logs/tensorboard"
+  wandb:
+    enabled: false
+    name: "half-cubic"
+    tags: ['half-heusler', 'cubic', 'alignn-dos']
+  verbose: true
+
+model:
+  atom_input_features: 97  # 92 base CGCNN (one-hot) + 5 Heusler-specific; must match dos_dataset.ATOM_INPUT_FEATURES

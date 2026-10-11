@@ -1,0 +1,11 @@
+set,category,n
+training,metal,48745
+training,half_metal,962
+training,semiconductor,1550
+training,window,671
+training,stable,3075
+prediction,metal,52111
+prediction,half_metal,473
+prediction,semiconductor,2394
+prediction,window,603
+prediction,stable,1818

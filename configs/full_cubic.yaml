@@ -1,0 +1,50 @@
+# Full Cubic Heusler - ALIGNN DOS Training Configuration
+# Dataset: Full Heusler compounds in cubic structure
+# Expected: ~9,000-10,000 materials
+# SVNIT Aurora: H100 NVL 94GB VRAM
+
+# Inherits all settings from base config.yaml
+# Only override data paths specific to this dataset
+
+# Training overrides for SVNIT Aurora H100 NVL
+training:
+  batch_size: 64                 # Smaller batch = better gradient quality + regularization
+  num_epochs: 200                # Fine-tuning from pre-trained weights; 200 epochs for better convergence
+
+data:
+  # Data paths — dos_dir is the only path used from this config.
+  # train_file / val_file / test_file are overridden per-fold by train_single_fold.sh
+  # (set to data/{dataset}/data_split/exp{E}_fold{F}_{split}.csv in the PYEOF block).
+  # The values below are placeholders — do NOT run train_hpc.py directly with this config.
+  dos_dir: "data/full_cubic/dos_json/"
+  train_file: "data/full_cubic/data_split/expA_fold0_train.csv"
+  val_file:   "data/full_cubic/data_split/expA_fold0_val.csv"
+  test_file:  "data/full_cubic/data_split/expA_fold0_test.csv"
+
+  # num_workers=0 is forced by train_single_fold.sh (PYEOF override) regardless of this value.
+  # SVNIT Aurora: cpus-per-task=2; worker processes are disabled to avoid cgroup CPU kills.
+  num_workers: 0
+  prefetch_factor: 2
+  pin_memory: true
+  persistent_workers: false
+
+# Output directory
+output_dir: "output/full_cubic/"
+
+# Logging
+logging:
+  tensorboard: true
+  tensorboard_dir: "output/full_cubic/logs/tensorboard"
+  wandb:
+    enabled: false
+    project: "alignn-dos-heusler"
+    name: "full-cubic"
+    tags: ['full-heusler', 'cubic', 'alignn-dos']
+  log_every_n_steps: 10
+  verbose: true
+
+# All other settings (model, training, optimizer, etc.)
+# inherit from base config.yaml
+
+model:
+  atom_input_features: 97  # 92 base CGCNN (one-hot) + 5 Heusler-specific; must match dos_dataset.ATOM_INPUT_FEATURES

@@ -1,0 +1,9 @@
+convention,track,entries,above_bar
+best over 300–1200 K; $|\mu-E_F|\leq0.5$ eV (certification basis),prediction,79,79
+best over 300–1200 K; $|\mu-E_F|\leq0.5$ eV (certification basis),training,76,76
+900 K; $|\mu-E_F|\leq0.5$ eV,prediction,79,42
+900 K; $|\mu-E_F|\leq0.5$ eV,training,76,42
+900 K; $|n|\leq10^{21}$ cm$^{-3}$,prediction,79,46
+900 K; $|n|\leq10^{21}$ cm$^{-3}$,training,76,45
+900 K; $|n|\leq10^{20}$ cm$^{-3}$,prediction,79,0
+900 K; $|n|\leq10^{20}$ cm$^{-3}$,training,76,0

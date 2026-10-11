@@ -1,0 +1,64 @@
+# Pre-training on all 6 Heusler datasets combined (51,257 materials)
+# Foundation model: pre-train ONCE → fine-tune cheaply on any target dataset.
+#
+# How data loading works with dos_path column:
+#   train_file (pretrain_train.csv) has a 'dos_path' column with absolute per-sample
+#   JSON paths — dos_dir is IGNORED for these rows (see dos_dataset.py).
+#   val_file (full_cubic expC fold0 val, 940 rows) uses dos_dir for loading.
+#   Val is for monitoring training convergence only — not for final evaluation.
+
+training:
+  batch_size: 64                 # shard:50 confirmed safe; bs=128 exceeded shard:30 limit on 6-dataset mixed graphs
+  num_epochs: 100                # lighter pass; fine-tune adds another 300 epochs
+  learning_rate: 0.001
+
+  mixed_precision: false
+  precision: 'fp32'
+
+  swa_start_fraction: 0.85       # start SWA at epoch 85/100 for final pre-train smoothing
+
+  grad_clip: 1.0
+  val_every_n_epochs: 1
+  save_every_n_epochs: 25        # checkpoint every 25 epochs during pre-training
+  save_best_only: false
+
+  screening_temperature: 700
+
+data:
+  # dos_dir used ONLY for val_file (full_cubic split has no dos_path column)
+  dos_dir: "data/full_cubic/dos_json/"
+
+  # combined CSV built by create_pretrain_dataset.py — contains dos_path column
+  train_file: "data/pretrain/pretrain_train.csv"
+
+  # full_cubic expC fold0 val used as monitoring set during pre-training only
+  val_file:   "data/full_cubic/data_split/expC_fold0_val.csv"
+  test_file:  "data/full_cubic/data_split/expC_fold0_test.csv"
+
+  num_workers: 0
+  prefetch_factor: 2
+  pin_memory: true
+  persistent_workers: false
+
+  augmentation:
+    enabled: false               # no augmentation during pre-training (speed + stability)
+
+output_dir: "output/pretrain/expPT/fold0"
+
+logging:
+  tensorboard: true
+  tensorboard_dir: "output/pretrain/logs/tensorboard"
+  wandb:
+    enabled: false
+    project: "alignn-dos-heusler"
+    name: "pretrain-all6"
+    tags: ['pretrain', 'all-heusler', 'alignn-dos']
+  log_every_n_steps: 10
+  verbose: true
+
+model:
+  atom_input_features: 97        # must match dos_dataset.ATOM_INPUT_FEATURES
+
+# All other sections (model arch, optimizer, scheduler, loss, early_stopping,
+# checkpointing, etc.) inherit from base config.yaml via deep_merge in the
+# config generation step inside submit_pretrain.sh.

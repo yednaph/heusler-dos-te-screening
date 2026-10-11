@@ -1,0 +1,10 @@
+certified compounds: 80  (entries 155; confirmed twice: 74)
+old_pm0.5eV_bestT      n= 80  wrong-sign 0  at-cap 0  Spearman vs old: PF  1.00  |S|  1.00  pareto=7  tier1-3 sizes [7, 5, 5]  top5: CoNbGe, RhNbGe, RhTaGe, RhNbSn, CoNbSn
+n1e21_p_900K           n= 80  wrong-sign 0  at-cap 72  Spearman vs old: PF  0.68  |S|  0.67  pareto=6  tier1-3 sizes [6, 5, 6]  top5: CoTiAs, CoVGe, RhTaSn, CoNbSn, RhVGe
+n1e21_p_bestT          n= 80  wrong-sign 0  at-cap 79  Spearman vs old: PF  0.60  |S|  0.77  pareto=6  tier1-3 sizes [6, 5, 4]  top5: CoNbSn, CoNbGe, RhTaGe, CoTiAs, CoTaGe
+n1e21_n_900K           n= 80  wrong-sign 0  at-cap 70  Spearman vs old: PF -0.23  |S|  0.07  pareto=3  tier1-3 sizes [3, 5, 6]  top5: CoZrAs, CoTiAs, CoHfAs, RhZrBi, CoHfBi
+n1e21_n_bestT          n= 80  wrong-sign 0  at-cap 77  Spearman vs old: PF -0.18  |S|  0.17  pareto=3  tier1-3 sizes [3, 6, 8]  top5: CoZrAs, CoHfAs, CoNbGe, RhZrBi, CoTiAs
+n1e20_p_900K           n= 80  wrong-sign 0  at-cap 79  Spearman vs old: PF  0.19  |S|  0.87  pareto=6  tier1-3 sizes [6, 7, 6]  top5: CoNbGe, CoNbSn, RhTaGe, CoTaGe, RhTaSn
+n1e20_p_bestT          n= 80  wrong-sign 0  at-cap 80  Spearman vs old: PF  0.28  |S|  0.87  pareto=7  tier1-3 sizes [7, 6, 4]  top5: CoNbGe, RhTaGe, CoTaGe, CoNbSn, RhTaSn
+n1e20_n_900K           n= 80  wrong-sign 3  at-cap 76  Spearman vs old: PF -0.00  |S|  0.63  pareto=3  tier1-3 sizes [3, 4, 10]  top5: CoHfAs, CoZrAs, CoHfBi, RhZrBi, CoNbGe
+n1e20_n_bestT          n= 80  wrong-sign 0  at-cap 80  Spearman vs old: PF -0.02  |S|  0.43  pareto=3  tier1-3 sizes [3, 6, 3]  top5: CoHfAs, CoZrAs, RhHfSb, CoNbGe, CoHfBi

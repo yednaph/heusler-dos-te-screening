@@ -1,0 +1,7 @@
+family,count_prediction,count_training
+full_cubic,4504,9396
+full_tetra,13479,8047
+half_cubic,4914,9396
+half_tetra,10896,6909
+inverse_cubic,6702,9072
+inverse_tetra,14483,8437

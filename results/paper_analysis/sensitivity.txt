@@ -1,0 +1,14 @@
+                              case  winners  gapped_winners  certified_entries  certified_compounds
+               declared (baseline)      309             201                155                   80
+bar on corrected basis (1.154e+12)      295             193                149                   77
+                          bar x0.8      353             228                205                  105
+                          bar x0.9      337             220                187                   96
+                          bar x1.1      283             185                136                   70
+                          bar x1.2      250             174                126                   65
+                          bar x1.5      161             107                 67                   35
+                  dopable |S| > 40      349             201                155                   80
+                  dopable |S| > 80      282             201                155                   80
+                 dopable |S| > 100      249             201                155                   80
+                      hull < 0.025      148             112                 95                   49
+                       hull < 0.05      206             152                123                   64
+                       hull < 0.15      395             249                203                  104
