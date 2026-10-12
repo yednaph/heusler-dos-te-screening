@@ -174,5 +174,7 @@ in `CMS/anchor/COPYING`). Please cite the article (`CITATION.cff`; manuscript in
   material discovery, *Acta Mater.* **297**, 121312 (2025), doi:10.1016/j.actamat.2025.121312;
 - E. Xiao and T. Tadano, Accurate screening of functional materials with machine-learning potential and transfer-learned
   regressions: Heusler alloy benchmark, *npj Comput. Mater.* **12**, 133 (2026), doi:10.1038/s41524-026-02013-0;
-- T. Tadano, HeuslerDB_elecDOS_ver1.0 (archives dated 241229), NIMS (2025), doi:10.48505/nims.5794 (CC BY 4.0);
+- T. Tadano, HeuslerDB_elecDOS_ver1.0 (archives dated 241229), NIMS (2025), doi:10.48505/nims.5794 (CC BY 4.0). Values computed from these NIMS spectra (the training-set screening columns of
+  `results/paper_analysis/paper_dataset.pkl`, and two DFT spectra and some example values in `paper/manuscript_v1/figures/data/`)
+  are third-party-derived data, used with attribution; see the README files in those folders;
 - DXMag Computational HeuslerDB, release 2025-09-09, https://www.nims.go.jp/group/spintheory/database/ (CC BY 4.0).

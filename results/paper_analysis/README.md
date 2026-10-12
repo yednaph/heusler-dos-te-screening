@@ -97,6 +97,13 @@ fixed during the campaign); (iii) a DXMag hull distance below 0.10 eV atom⁻¹;
 0.136 eV; and (v) for compounds with Z ≥ 72, criterion (ii) again with spin–orbit coupling. It is a computational status under
 the CRTA at the PBE level, not a measured or predicted figure of merit.
 
+## Third-party data (attribution)
+
+`paper_dataset.pkl` keeps, for the 1,562 training-set runs, the 25 screening columns listed under "Omitted columns". The authors
+computed them from the DFT d-DOS of the **HeuslerDB electronic-DOS dataset** (T. Tadano, NIMS, doi:10.48505/nims.5794,
+CC BY 4.0). They are values derived from NIMS data, used here with attribution; the spectra themselves were produced by NIMS
+and are not redistributed. The prediction-set values in the same columns come from the authors' predicted spectra.
+
 ## Omitted columns
 
 The CSV files contain only data produced in this study and DXMag identifiers and metadata. These 25 screening columns of the
