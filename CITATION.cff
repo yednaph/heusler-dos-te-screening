@@ -1,32 +1,133 @@
 cff-version: 1.2.0
-message: "If you use this code, please cite the manuscript below (in preparation) and the DXMag database."
-title: "Density-of-states screening of Heusler thermoelectrics across compositions and structural variants, assessed by first-principles transport"
+message: "If you use this code, please cite the article below (preferred citation; manuscript in preparation), the predicted d-DOS data record and the DXMag sources listed under references."
+type: software
+title: "heusler-dos-te-screening: code and first-principles results for 'High-throughput screening of Heusler alloys for thermoelectrics combining machine-learned densities of states and first-principles transport'"
 version: "1.0.0"
-date-released: "2026-10-11"
-license: MIT
+date-released: "2026-10-12"
+license:
+  - MIT
+  - GPL-3.0-or-later
+repository-code: "https://github.com/yednaph/heusler-dos-te-screening"
+url: "https://github.com/yednaph/heusler-dos-te-screening/releases/tag/v1.0.0"
+identifiers:
+  - type: url
+    value: "https://github.com/yednaph/heusler-dos-te-screening/releases/tag/v1.0.0"
+    description: "GitHub release v1.0.0"
+  # TODO: no code DOI yet. When the v1.0.0 release is archived (e.g. at Zenodo), add here:
+  #   - type: doi
+  #     value: "10.5281/zenodo.<code record>"
+  #     description: "Archived code release v1.0.0"
+keywords:
+  - thermoelectric materials
+  - Heusler compounds
+  - high-throughput screening
+  - density of states
+  - graph neural networks
+  - density functional theory
 authors:
   - family-names: Randive
     given-names: Shivam
-    affiliation: "Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
+    affiliation: "Department of Physics, Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
+    orcid: "https://orcid.org/0009-0005-1403-4484"
   - family-names: Pandey
     given-names: Himanshu
-    affiliation: "Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
+    affiliation: "Department of Physics, Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
+    orcid: "https://orcid.org/0000-0002-7380-366X"
   - family-names: Dixit
     given-names: Rahul
-    affiliation: "Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
+    affiliation: "Department of Artificial Intelligence, Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
+    orcid: "https://orcid.org/0000-0001-6121-8423"
   - family-names: Ghosh
     given-names: Ayana
-    affiliation: "Indian Institute of Technology Madras, Chennai, India"
+    affiliation: "Department of Physics, Indian Institute of Technology Madras, Chennai, India"
+    orcid: "https://orcid.org/0000-0002-0432-3689"
+preferred-citation:
+  type: article
+  title: "High-throughput screening of Heusler alloys for thermoelectrics combining machine-learned densities of states and first-principles transport"
+  status: in-preparation
+  year: 2026
+  authors:
+    - family-names: Randive
+      given-names: Shivam
+      affiliation: "Department of Physics, Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
+      orcid: "https://orcid.org/0009-0005-1403-4484"
+    - family-names: Pandey
+      given-names: Himanshu
+      affiliation: "Department of Physics, Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
+      orcid: "https://orcid.org/0000-0002-7380-366X"
+    - family-names: Dixit
+      given-names: Rahul
+      affiliation: "Department of Artificial Intelligence, Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
+      orcid: "https://orcid.org/0000-0001-6121-8423"
+    - family-names: Ghosh
+      given-names: Ayana
+      affiliation: "Department of Physics, Indian Institute of Technology Madras, Chennai, India"
+      orcid: "https://orcid.org/0000-0002-0432-3689"
 references:
+  - type: dataset
+    title: "Predicted spin-resolved d-orbital densities of states for 54,978 DXMag Heusler entries"
+    authors:
+      - family-names: Randive
+        given-names: Shivam
+      - family-names: Pandey
+        given-names: Himanshu
+      - family-names: Dixit
+        given-names: Rahul
+      - family-names: Ghosh
+        given-names: Ayana
+    publisher:
+      name: Zenodo
+    version: "1.0.0"
+    year: 2026
+    doi: "10.5281/zenodo.23315204"
+    license: CC-BY-4.0
+    notes: "Distributed as one archive, heusler_predicted_ddos_v1.zip; see DATA.md."
   - type: article
     title: "High-throughput computational screening of Heusler compounds with phonon considerations for enhanced material discovery"
-    authors: [{family-names: Xiao, given-names: Enda}, {family-names: Tadano, given-names: Terumasa}]
+    authors:
+      - family-names: Xiao
+        given-names: Enda
+      - family-names: Tadano
+        given-names: Terumasa
     journal: "Acta Materialia"
     volume: 297
+    start: 121312
+    notes: "Article number 121312."
     year: 2025
     doi: "10.1016/j.actamat.2025.121312"
+  - type: article
+    title: "Accurate screening of functional materials with machine-learning potential and transfer-learned regressions: Heusler alloy benchmark"
+    authors:
+      - family-names: Xiao
+        given-names: Enda
+      - family-names: Tadano
+        given-names: Terumasa
+    journal: "npj Computational Materials"
+    volume: 12
+    start: 133
+    notes: "Article number 133."
+    year: 2026
+    doi: "10.1038/s41524-026-02013-0"
+  - type: database
+    title: "DXMag Computational HeuslerDB, release 2025-09-09"
+    authors:
+      - family-names: Tadano
+        given-names: Terumasa
+      - family-names: Xiao
+        given-names: Enda
+    publisher:
+      name: "Spin Theory Group, National Institute for Materials Science (NIMS)"
+    url: "https://www.nims.go.jp/group/spintheory/database/"
+    year: 2025
+    license: CC-BY-4.0
   - type: dataset
     title: "HeuslerDB_elecDOS_ver1.0"
-    authors: [{family-names: Tadano, given-names: Terumasa}]
+    authors:
+      - family-names: Tadano
+        given-names: Terumasa
+    publisher:
+      name: "National Institute for Materials Science (NIMS)"
+    version: "241229"
     year: 2025
     doi: "10.48505/nims.5794"
+    license: CC-BY-4.0

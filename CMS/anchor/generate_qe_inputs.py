@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 The authors listed in CITATION.cff; see CMS/anchor/COPYING.
 # =============================================================================
-# generate_qe_inputs.py  --  CIF -> QE vc-relax  ->  QE scf.in + nscf.in
+# generate_qe_inputs.py  --  CIF -> QE scf.in + nscf.in (optionally via QE vc-relax)
 #
-#   TWO-STAGE pipeline (added after confirming, via Xiao & Tadano's own DXMag
-#   paper, that these anchor structures -- novel MatterGen-generated compounds
-#   through only "light MLIP relaxation" -- are NOT DFT-relaxed the way Xiao &
-#   Tadano's own ternary-track database entries were; their quaternary/all-d
-#   track uses the SAME kind of cheap MLIP relaxation and is explicitly the
-#   lower-confidence tier in their own methodology. A real DFT relaxation is
-#   required before the SCF/NSCF/BoltzTraP2 chain, not optional.):
+#   USED FOR THE PAPER: --stage cif_scf_nscf. The DXMag cell of each entry (already
+#   relaxed by DXMag with VASP-PBE) is symmetrised and reduced to its primitive cell
+#   with spglib (tolerance 1e-3) and written straight to scf.in / nscf.in, with no
+#   further relaxation, so transport is computed on the structure the d-DOS screen
+#   scored (manuscript, Methods).
+#
+#   The two-stage relaxation path below was written for an earlier use of this
+#   driver on structures that had not been DFT-relaxed; the paper's results use
+#   the no-relaxation path above (manuscript, Methods):
 #
 #     Stage 1 (--stage relax):      CIF -> vc-relax.in
 #         (relax BOTH atomic positions AND cell, matching Xiao & Tadano's own
@@ -19,10 +23,14 @@
 #          cutoffs/nelec/magnetism are re-derived from the relaxed structure's
 #          own element list, so stage 2 needs no reference back to the CIF)
 #
-#   Depends only on numpy (present in the qe env) -- no pymatgen. The prediction
-#   CIFs are P1 with explicit atoms, so we parse cell + positions directly.
+#   Depends on numpy and spglib (no pymatgen). The CIFs list every atom explicitly,
+#   so cell + positions are parsed directly and any space-group line is ignored.
 #
-#   Usage (called in a loop by run_anchor.slurm):
+#   Usage (the paper's path, as called by run_anchor_local.sh):
+#     python generate_qe_inputs.py --stage cif_scf_nscf --cif RhNbSn_xxx.cif \
+#         --sssp_dir SSSP --sssp_json SSSP_efficiency.json \
+#         --outdir RhNbSn --prefix RhNbSn
+#   Relaxation stages (not used for the paper):
 #     python generate_qe_inputs.py --stage relax --cif RhNbSn_xxx.cif \
 #         --sssp_dir SSSP --sssp_json SSSP_efficiency.json \
 #         --outdir RhNbSn --prefix RhNbSn
@@ -559,7 +567,7 @@ def main():
 
     elif args.stage == "cif_scf_nscf":
         # NO-RELAX PATH (2026-07-23): build scf.in + nscf.in DIRECTLY from the
-        # (ML-relaxed) CIF, skipping the DFT vc-relax entirely. Rationale:
+        # DXMag CIF (VASP-PBE geometry), skipping the QE vc-relax entirely. Rationale:
         #   * descriptor<->transport consistency -- transport is computed on the
         #     SAME structure the DOS screen scored, so structure is no longer a
         #     confounding variable in the ranking validation;
@@ -570,9 +578,9 @@ def main():
         #     non-primitive CIFs (e.g. CrTiTl's 6-atom I-4m2 cell) -- but on a
         #     clean CIF with NO BFGS noise it is robust, not the tolerance-
         #     mismatch minefield it was on relaxed structures.
-        # SCOPE NOTE: results are transport "at the ML-relaxed geometry", NOT
-        # full-DFT-relaxed ground state -- label them that way. For an absolute
-        # zT on a single champion material, relax that one properly (--stage relax).
+        # SCOPE NOTE: results are transport at the DXMag (VASP-PBE) geometry, not
+        # re-relaxed in QE-PBE -- label them that way (--stage relax re-relaxes one
+        # structure if that is ever needed).
         if not args.cif:
             sys.exit("  --cif is required for --stage cif_scf_nscf")
         a, b, c, al, be, ga, atoms = read_cif(args.cif)

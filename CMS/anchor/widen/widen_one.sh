@@ -1,4 +1,6 @@
 #!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 The authors listed in CITATION.cff; see CMS/anchor/COPYING.
 # widen copy (2026-10-08): identical to recovery/recover_one.sh except output transport_w1.json, +/-1.0 eV doping window, widen/ logs+scratch.
 # Recover ONE material's transport from its nscf.out text.
 # Writes runs_local/<rd>/transport_w1.json and NEVER touches transport.json.
@@ -10,7 +12,7 @@ export HOME=$HOME; export PATH="$HOME/.local/bin:$PATH"
 R=$A/runs_local/$rd
 OUT=$R/transport_w1.json
 LOG=$A/widen/logs/$rd.log
-mkdir -p "$A/widen/logs"
+mkdir -p "$A/widen/logs" "$A/widen/scratch"   # log and scratch folders (mktemp below needs the scratch parent)
 [ -s "$OUT" ] && { echo "SKIP $rd (already recovered)"; exit 0; }
 
 W=$(mktemp -d "$A/widen/scratch/${rd}.XXXXXX") || { echo "FAIL $rd mktemp"; exit 1; }
@@ -28,11 +30,13 @@ trap 'rm -rf "$W"' EXIT
     || { echo "FAIL $rd interpolate"; tail -3 interp.log; exit 1; }
   # 3. assert the loaded data matches what nscf.out says -- catches a silent
   #    mis-parse (wrong nspin, truncated k-list, dropped bands)
-  python3 - "$rd" <<'PY' || { echo "FAIL $rd assert"; exit 1; }
+  #    The heredoc is quoted ('PY'), so the shell expands nothing inside it:
+  #    the run name and the CMS/anchor path are passed as arguments instead.
+  python3 - "$rd" "$A" <<'PY' || { echo "FAIL $rd assert"; exit 1; }
 import sys, re
 from BoltzTraP2 import serialization
-rd = sys.argv[1]
-A = "${HEUSLER_TE_ROOT:?set HEUSLER_TE_ROOT}/CMS/anchor"
+rd = sys.argv[1]                       # run directory name under runs_local/
+A = sys.argv[2]                        # absolute CMS/anchor path, resolved by the shell above
 b = open(f"{A}/runs_local/{rd}/nscf.out", "rb").read()
 nk = int(re.search(rb"number of k points=\s*(\d+)", b).group(1))
 nspin = 2 if (b"SPIN UP" in b or b"total magnetization" in b) else 1

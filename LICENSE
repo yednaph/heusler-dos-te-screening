@@ -20,5 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Exception: the files under CMS/anchor/ that derive from or import BoltzTraP2 are
-distributed under GPL-3.0-or-later; see CMS/anchor/LICENSE-GPL-3.0-NOTICE.md.
+Exception: all files under CMS/anchor/ (the first-principles workflow, which
+derives from or imports BoltzTraP2) are distributed under the GNU General Public
+License, version 3 or (at your option) any later version (GPL-3.0-or-later). The
+full licence text is in CMS/anchor/COPYING; see CMS/anchor/LICENSE-GPL-3.0-NOTICE.md.

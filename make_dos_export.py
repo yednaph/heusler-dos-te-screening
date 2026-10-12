@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """
-make_dos_export.py — Build the DOS_EXPORT package for MatterGen integration.
+make_dos_export.py — Build the DOS_EXPORT package (model export of the d-DOS models).
+
+The export was first assembled for reuse of the models in a separate structure-generation
+project; the deposited model weights, per-fold configurations and held-out predictions of
+this study were taken from it. The README text written into the export (DOC_README below)
+is kept as it was generated.
 
 Collects every inference-required asset defined by ALIGNN_DOS_INTEGRATION_REQUIREMENTS.md
 into DOS_EXPORT/, generates manifests + SHA-256 checksums + environment capture,

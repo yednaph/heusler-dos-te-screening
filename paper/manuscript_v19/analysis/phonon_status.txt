@@ -1,0 +1,10 @@
+certified compositions: 80; with a DXMag phonon result for a training-set crystal: 80; all such crystals stable: 80
+calculated training runs with phonons: 530; unstable: 102
+by QE-PBE class (stable / unstable):
+phonon stable (commensurate)  No  Yes
+dft_class                            
+gapped                        37  166
+half_metal                     0    9
+metal                         62  239
+narrow                         3   14
+note: "no clear phonon instability" was part of a priority filter that ordered selection (Methods), so this is consistent but not independent.

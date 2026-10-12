@@ -1,0 +1,32 @@
+variants (>= 5 meV/atom above the composition's lowest calculated crystal): 824 entries, 491 compositions; by set {'prediction': 661, 'training': 163}; same family 329, other family 495
+dE median 33.1 meV/atom, IQR [16.5, 59.3]
+class reference (rows) vs variant (cols):
+dft_class      gapped  half_metal  metal  narrow  All
+ref_dft_class                                        
+gapped              6           0      2       1    9
+half_metal          0           4      0       0    4
+metal               0           1    800       4  805
+narrow              0           0      2       4    6
+All                 6           5    804       9  824
+same class: 98.8%
+qualified reference (rows) vs variant (cols):
+qualified      False  True  All
+ref_qualified                  
+False            808     2  810
+True              10     4   14
+All              818     6  824
+by energy above reference:
+                   n  median_pf_ratio  median_S_ratio  same_class
+dE                                                               
+(5.0, 25.0]      316            1.033           1.052       0.987
+(25.0, 50.0]     245            1.138           1.202       0.984
+(50.0, 100.0]    192            0.992           1.022       0.995
+(100.0, 200.0]    56            0.541           0.732       1.000
+(200.0, 5000.0]   15            0.563           0.752       0.933
+certified compositions with a calculated variant: 3 ['IrTaSn', 'NiVGa', 'PdScAs']
+composition ref_space group symbol space group symbol   data_set     dE  ref_gap   gap dft_class  qualified  hull soc_status  pf_ratio  S_ratio
+     IrTaSn                  F-43m              I-4m2 prediction 77.990    0.956 0.786    gapped       True 0.078    not run     0.922    0.848
+      NiVGa                  F-43m              I-4m2 prediction 11.271    0.384 0.338    gapped      False 0.106    not run     0.977    0.951
+     PdScAs                  I-4m2              I-4m2 prediction 20.242    0.443 0.179    gapped      False 0.116    not run     0.895    0.317
+gapped reference and gapped variant: 6 ['IrTaSn', 'LuZnBi', 'NiVGa', 'NiYP', 'PdScAs']
+variant qualified but reference not: 2 [{'composition': 'Ni3Al', 'dft_class': 'metal', 'dE': 33.0}, {'composition': 'Ni2PtGa', 'dft_class': 'metal', 'dE': 89.3}]

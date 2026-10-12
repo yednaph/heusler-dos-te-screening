@@ -2,8 +2,18 @@
 """
 HPC Training Script for ALIGNN-DOS
 
-This is a TEMPLATE script for distributed training on HPC clusters.
-Adapt this to match your local pipeline's data loading and model architecture.
+The training script of the study's d-DOS model: it trained the all-family
+pretraining run and the 30 per-family fold models (6 families x 5 folds) whose
+SWA weights produced the prediction-set spectra. One run per call:
+
+    python train_hpc.py --config <per-fold config.yaml> --output_dir <dir> \
+        [--pretrain_checkpoint <parent .pt> --finetune_lr_scale <s>]
+
+The per-fold configurations are the merge of config.yaml and configs/<family>.yaml
+(see the model export). Which runs actually started from the pretrained parent is
+recorded for only 2 of the 30 models (manuscript, Methods); behaviour that differs
+from what the configuration files suggest is listed in README.md, "Known
+implementation details".
 """
 
 import sys
@@ -328,7 +338,8 @@ def create_model(config: Dict[str, Any], device: torch.device) -> nn.Module:
     """
     Create ALIGNN model from configuration.
 
-    MODIFY: Replace with your actual model creation logic.
+    The architecture used for all 30 production models (ALIGNN encoder, mean pooling,
+    three-layer MLP head of 4,002 outputs); softplus is applied outside the module.
     """
     model_config = config['model']
 
@@ -382,7 +393,7 @@ def create_dataloaders(
     """
     Create training and validation dataloaders.
 
-    MODIFY: Replace with your actual dataset loading logic.
+    Reads the per-fold split CSVs through code/dos_dataset.py (graphs and d-DOS targets).
     """
     data_config = config['data']
     training_config = config['training']

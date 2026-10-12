@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 The authors listed in CITATION.cff; see CMS/anchor/COPYING.
+# OLD_IO/OLD_DFT reproduce, and NEW_IO/NEW_DFT modify, excerpts of BoltzTraP2 24.7.2 (io.py, dft.py),
+# Copyright (C) 2017-2024 G. K. H. Madsen, J. Carrete, M. J. Verstraete and co-authors, GPL-3.0-or-later.
 # =============================================================================
 # Local patch enabling BoltzTraP2 24.7.2 to read Quantum ESPRESSO spin-orbit
 # (non-collinear) output.
@@ -33,9 +37,32 @@ import os as _os_htr  # release v1: project paths come from the environment
 _HTR = _os_htr.environ.get('HEUSLER_TE_ROOT', _os_htr.path.abspath(_os_htr.path.join(_os_htr.path.dirname(__file__), '../../..')))
 _HTE = _os_htr.environ.get('HEUSLER_TE_EXPORT', _os_htr.path.join(_HTR, 'DOS_EXPORT'))
 import re, shutil, sys, os
+import importlib.util
 
-B = "~/.local/lib/python3.8/site-packages/BoltzTraP2"
-IO, DFT = f"{B}/io.py", f"{B}/dft.py"
+
+def _boltztrap2_dir():
+    """Directory of the BoltzTraP2 package to patch.
+
+    Order: an explicit path given as the first argument (``~`` is expanded), else
+    the BoltzTraP2 package that this Python interpreter would import. The package
+    is located with importlib.util.find_spec, which does not import it, so the
+    patch can be applied to an installation that currently refuses SOC input.
+    (The original campaign patched ~/.local/lib/python3.8/site-packages/BoltzTraP2.)
+    """
+    if len(sys.argv) > 1:                                          # explicit package directory
+        return os.path.abspath(os.path.expanduser(sys.argv[1]))    # Python does not expand "~" by itself
+    spec = importlib.util.find_spec("BoltzTraP2")                  # locate without importing
+    if spec is None or not spec.submodule_search_locations:        # not installed for this interpreter
+        sys.exit("BoltzTraP2 not found; pass its package directory, e.g. "
+                 "python3 apply_patch.py ~/.local/lib/python3.8/site-packages/BoltzTraP2")
+    return list(spec.submodule_search_locations)[0]                # the package directory itself
+
+
+B = _boltztrap2_dir()                                              # package directory to patch
+IO, DFT = f"{B}/io.py", f"{B}/dft.py"                              # the two files the patch edits
+for _f in (IO, DFT):                                               # fail early with a clear message
+    if not os.path.isfile(_f):
+        sys.exit(f"not a BoltzTraP2 package directory (missing {_f})")
 
 OLD_IO = '''    non_collinear = xml_bands.find("./noncolin").text == "true"
     if non_collinear:
@@ -114,12 +141,13 @@ def patch(path, old, new, label):
     print(f"  {label}: patched OK")
     return True
 
-print("applying BoltzTraP2 SOC patch")
+print(f"applying BoltzTraP2 SOC patch to {B}")
 ok = patch(IO, OLD_IO, NEW_IO, "io.py") and patch(DFT, OLD_DFT, NEW_DFT, "dft.py")
 if not ok:
     sys.exit(1)
 # remove stale bytecode so the edit takes effect
-for f in os.listdir(f"{B}/__pycache__"):
+_cache = f"{B}/__pycache__"                                        # absent if the package was never imported
+for f in (os.listdir(_cache) if os.path.isdir(_cache) else []):
     if f.startswith(("io.", "dft.")):
-        os.remove(f"{B}/__pycache__/{f}")
+        os.remove(f"{_cache}/{f}")
 print("cleared __pycache__ for io/dft")

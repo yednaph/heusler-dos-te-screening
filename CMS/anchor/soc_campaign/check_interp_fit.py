@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 The authors listed in CITATION.cff; see CMS/anchor/COPYING.
 """
 Decide whether BoltzTraP2's symmetry reconstruction is valid for a MAGNETIC
 spin-orbit run.

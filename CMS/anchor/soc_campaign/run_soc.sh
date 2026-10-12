@@ -1,4 +1,6 @@
 #!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 The authors listed in CITATION.cff; see CMS/anchor/COPYING.
 # =============================================================================
 # Spin-orbit BoltzTraP2 campaign driver.
 #

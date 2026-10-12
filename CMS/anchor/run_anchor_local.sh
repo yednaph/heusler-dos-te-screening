@@ -1,12 +1,14 @@
 #!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 The authors listed in CITATION.cff; see CMS/anchor/COPYING.
 # =============================================================================
 # run_anchor_local.sh -- run the DFT->BoltzTraP2 anchor pipeline on THIS PC,
 # autonomously, while HPC submission is suspended.
 #
-# Same pipeline and same hard-won bug fixes as run_anchor_batch3*.slurm:
-#   relax -> post_relax (spglib symmetrisation) -> scf -> nscf (Davidson, with
-#   automatic cg fallback for the Ga failure class) -> btp2 interpolate ->
-#   extract_transport.py
+# Pipeline (the cluster SLURM variants are not included in this repository):
+#   [RELAX=1 only: vc-relax ->] spglib symmetrisation -> scf -> nscf (Davidson,
+#   with automatic cg fallback for the Ga failure class) -> btp2 interpolate ->
+#   extract_transport.py. The paper's runs used the default RELAX=0.
 #
 # LOCAL-SPECIFIC CHOICES (this is a workstation, not a compute node):
 #   * NRANKS=8 of 16 cores, and `nice` -- the machine must stay usable.
@@ -15,7 +17,7 @@
 #     loop aborts cleanly rather than filling the disk.
 #   * QE here is 7.1; the HPC ran 7.5. The queue therefore starts with 3
 #     already-HPC-completed materials so the two versions can be compared
-#     before any new local result is trusted (see code/build_local_queue.py).
+#     before any new local result is trusted (the queue builder is not included).
 #
 # Usage:  cd CMS/anchor && nohup bash run_anchor_local.sh > local_run.log 2>&1 &
 #         tail -f local_run.log
@@ -46,12 +48,11 @@ MIN_FREE_GB=15
 QUICK_FAIL_SECONDS=120
 
 # RELAX toggle (2026-07-23). Default OFF: build scf/nscf DIRECTLY from the CIF
-# (the ML-relaxed geometry), skipping DFT vc-relax entirely -- keeps transport
+# (the DXMag VASP-PBE geometry), skipping QE vc-relax entirely -- keeps transport
 # on the SAME structure the DOS screen used, avoids relax-convergence failures,
 # and is ~5-10x faster (relax was the bottleneck). Results are "transport at
-# the ML-relaxed geometry", NOT full-DFT-relaxed ground state. Set RELAX=1 to
-# restore the iterative Pulay vc-relax path (for absolute-zT work on a single
-# champion material).
+# the DXMag geometry", not re-relaxed in QE. Set RELAX=1 to restore the
+# iterative Pulay vc-relax path (not used for the paper).
 RELAX="${RELAX:-0}"
 
 command -v mpirun >/dev/null || { echo "FATAL: mpirun missing"; exit 1; }
@@ -80,13 +81,13 @@ check_disk
 # Composition -> already-assigned-plain-name marker (2026-07-28). materials.txt
 # is composition-keyed end to end (runs_local/<comp>/, transport.json's "comp"
 # field), but duplicate-formula/different-UUID entries are known to exist in
-# this project's data (see CLAUDE.md) -- extending the queue toward the full
+# this project's data (match by UUID, never by formula) -- extending the queue toward the full
 # 1408-material pool means SOME newly appended lines legitimately share a
 # formula with a material already queued/done. Giving both the SAME plain
 # directory would make the driver's `[ -f "$d/transport.json" ] && skip` guard
 # silently treat the new, genuinely different material as "already done" using
 # the OLD material's result (this exact risk killed the composition-only
-# design for the 2026-07-25 queue extension; see SESSION_CONTEXT.md).
+# design for the 2026-07-25 queue extension).
 # Fix: the FIRST line (top to bottom) with a given composition gets the plain
 # name (so every material already run under the old scheme is untouched --
 # none of the current 854 entries' formulas repeat among themselves). Any
@@ -122,8 +123,8 @@ while IFS=$'\t' read -r comp cif fam <&3; do
 
     # ---- STEPS 1+2: build scf.in/nscf.in ----------------------------------
     if [ "$RELAX" != 1 ]; then
-        # NO-RELAX (default): scf/nscf DIRECTLY from the CIF (ML-relaxed
-        # geometry) via spglib symmetrisation + primitive reduction. Skips DFT
+        # NO-RELAX (default): scf/nscf DIRECTLY from the CIF (DXMag VASP-PBE
+        # geometry) via spglib symmetrisation + primitive reduction. Skips QE
         # vc-relax entirely -- transport is computed on the SAME structure the
         # DOS screen scored. Idempotent, so no resume marker needed.
         nice -n 10 python3 "$ANCHOR/generate_qe_inputs.py" --stage cif_scf_nscf \

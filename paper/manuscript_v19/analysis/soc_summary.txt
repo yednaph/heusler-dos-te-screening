@@ -1,0 +1,32 @@
+paired runs (scalar and SOC both finished): 607  by set {'training': 351, 'prediction': 250, 'ambiguous': 6}
+identical cell/positions/k-meshes: 607/607/607; scalar runs spin-polarised 160, max converged |m| 0.020 Bohr mag/cell (all non-magnetic)
+class transitions scalar -> SOC:
+soc_class  gapped  metal  narrow  All
+dft_class                            
+gapped        264     23      10  297
+metal           1    256      11  268
+narrow          0     31      11   42
+All           265    310      32  607
+gapped in both: 264; gap decreased in 92.8%; median dgap -0.056 eV, IQR [-0.106, -0.026]; median relative -11.2%
+PF ratio (best PF/tau SOC/scalar), all pairs: median 0.872; <1 in 89.8%; <0.9 in 61.0%; >1.1 in 2.8%; 900 K median 0.864
+Seebeck criterion scalar (rows) vs SOC (cols):
+soc_dopable  False  True 
+dopable                  
+False           32      3
+True            59    513
+scalar candidates (qualified + gapped, SOC done): 115 {'prediction': 59, 'training': 56}; kept {'prediction': 40, 'training': 35}, lost {'prediction': 19, 'training': 21}
+  compositions: 60 candidates, 40 kept, 20 lost: ['AuHfGa', 'AuHfIn', 'AuScSi', 'AuTiAl', 'AuTiGa', 'AuTiIn', 'AuZrAl', 'AuZrGa', 'AuZrIn', 'AuZrTl', 'IrHfSb', 'IrTiSb', 'NiHfSn', 'NiTaGa', 'PdHfSn', 'PtHfSi', 'PtTaAl', 'PtTiGe', 'PtTiSi', 'PtTiSn']
+  candidate medians: PF ratio 0.820, |S| ratio 0.966, sigma/tau ratio 0.858
+  Au-containing=False: n 93, lost 20, median PF 0.872, |S| 0.985, sigma 0.925
+  Au-containing=True: n 22, lost 20, median PF 0.549, |S| 0.914, sigma 0.665
+  Hf: candidates 27, lost 12, median PF ratio 0.86
+  Ta: candidates 32, lost 4, median PF ratio 0.81
+  Os: candidates 4, lost 0, median PF ratio 0.88
+  Ir: candidates 18, lost 4, median PF ratio 0.76
+  Pt: candidates 20, lost 10, median PF ratio 0.70
+  Au: candidates 22, lost 20, median PF ratio 0.55
+  Tl: candidates 2, lost 2, median PF ratio 0.55
+  Pb: candidates 4, lost 0, median PF ratio 0.88
+  Bi: candidates 12, lost 0, median PF ratio 0.97
+  all lost runs remain gapped under SOC: True; lost runs median PF ratio 0.586, kept 0.883
+certified heavy entries with SOC class: {'gapped': 73, 'metal': 2}; not gapped under SOC: [{'composition': 'OsNbSb', 'data_set': 'prediction', 'gap': 0.2591000000000001, 'soc_gap': 0.0}, {'composition': 'OsNbSb', 'data_set': 'training', 'gap': 0.25900000000000034, 'soc_gap': 0.0}]

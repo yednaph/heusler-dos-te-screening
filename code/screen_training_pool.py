@@ -5,9 +5,9 @@
 #
 # WHY A SEPARATE SCRIPT, AND WHY THE POOLS ARE NEVER MERGED
 # ---------------------------------------------------------
-# te_rescreen.py screens the NOVEL pool (54,978) from ML-PREDICTED DOS.
-# This screens the TRAINING pool (51,257) from REAL DFT DOS.
-# Measured on 9,396 materials that have both, predicted-vs-true medians are:
+# te_rescreen.py screens the PREDICTION set (54,978) from ML-PREDICTED DOS.
+# This screens the TRAINING set (51,257) from the DFT DOS of the HeuslerDB archive.
+# Measured on 9,396 materials that have both, predicted-vs-DFT medians are:
 #     dos_ef 1.03   C_sharp 0.98   D_dosmass 1.02   A_seebeck 0.84   B_pf 0.73
 # i.e. descriptors built from predicted DOS carry A_seebeck ~16% low and B_pf
 # ~27% low.  Pooling the two sets into one ranking would therefore hand the
@@ -15,8 +15,18 @@
 # provenance, not thermoelectric quality.  The two pools are ranked SEPARATELY
 # and their scores must never be compared across the pool boundary.
 #
-# The transport physics is imported from te_rescreen so both pools go through
-# byte-identical descriptor code -- only the DOS source differs.
+# The transport physics is imported from te_rescreen, so both sets go through the
+# same descriptor and label code (transport_descriptors, classify). The INPUT is
+# not the same, however (release-review B5; manuscript Methods, d-DOS gap label):
+#   * prediction set: the per-atom ensemble-mean d-DOS (training targets were the
+#     archive d-DOS divided by the number of atoms, clipped at zero);
+#   * training set (this script): the archive d-DOS as stored, summed over the
+#     sites of the stored cell and NOT divided by its 3 or 4 atoms (d_dos_from_json).
+# Indicators that scale with the DOS -- B_pf (P^d_max), D_dosmass (L0*), dos_ef --
+# and the fixed 0.15 states/eV label threshold are therefore on a per-cell scale
+# here: in physical units the threshold is 3-4 times stricter than in the
+# prediction set. A_seebeck (S^d_max) and C_sharp (xi) do not depend on the DOS
+# scale. Raw values and label rates are compared only within one set.
 # =============================================================================
 import argparse, json, sys
 from pathlib import Path
@@ -44,7 +54,7 @@ def d_dos_from_json(path):
     d = json.load(open(path))
     E   = np.asarray(d["energies"], dtype=np.float64)
     ef  = float(d["efermi"])
-    dens = d["spd_dos"]["d"]["densities"]        # d-projected, summed over atoms
+    dens = d["spd_dos"]["d"]["densities"]        # d-projected, summed over atoms (per stored cell, not per atom)
     rel = E - ef                                  # shift so E_F sits at 0
     up = np.interp(E_GRID, rel, np.asarray(dens["1"],  dtype=np.float64), left=0.0, right=0.0)
     dn = np.interp(E_GRID, rel, np.asarray(dens["-1"], dtype=np.float64), left=0.0, right=0.0)
@@ -96,7 +106,7 @@ def main():
     args = ap.parse_args()
     args.out.parent.mkdir(parents=True, exist_ok=True)
 
-    print(f"mu-scan: +/-{T.MU_MAX} eV, {len(T.MU_GRID)} points  (same as the novel-pool screen)")
+    print(f"mu-scan: +/-{T.MU_MAX} eV, {len(T.MU_GRID)} points  (same as the prediction-set screen)")
     frames = []
     for fam in FAMILIES:
         ckpt = args.out.parent / f"_ckpt_training_{fam}.csv"
@@ -119,7 +129,7 @@ def main():
     if dxm is not None:
         allm = allm.merge(dxm, on="UUID", how="left")
 
-    # --- same graded annotations as the novel-pool screen, so the two tables are
+    # --- same graded annotations as the prediction-set screen, so the two tables are
     #     structurally comparable even though their SCORES are not ------------
     allm["gate_semiconductor"] = (allm.etype == "semiconductor") & allm.gap_eV.between(0.1, 1.0)
     if "ML_hull" in allm.columns:

@@ -2,28 +2,47 @@
 """
 generate_prediction_cifs_from_dxmag.py
 =======================================
-Reads the DXMag Heusler Excel database, generates CIF files for all materials
-NOT already in training data, and organises them into per-category folders.
+Reads the DXMag Heusler Excel database (release 2025-09-09), writes one CIF for
+every entry of the PREDICTION SET -- the entries without a DFT d-DOS in the
+HeuslerDB electronic-DOS archive -- and organises them into per-family folders.
 
-Run with the conda Python that has openpyxl:
-    C:/Users/YOUR_USERNAME/Conda/python.exe code/generate_prediction_cifs_from_dxmag.py
+Set membership: an entry belongs to the training set when its spectrum exists as
+data/<family>/dos_json/<composition>_<uuid>.json; every other DXMag entry is
+written here.
+
+Run with any Python 3 that has openpyxl, from the repository root:
+    python3 code/generate_prediction_cifs_from_dxmag.py
 
 Output: data/predictions/{full_cubic,full_tetra,inverse_cubic,inverse_tetra,half_cubic,half_tetra}/
 
-CIF format exactly matches the training CIFs:
+CIF format (space group P 1; every atom of the DXMag cell is listed explicitly):
     data_{composition}_{uuid}
     # Generated from DXMag Heusler Database
     # UUID: ...
     # Composition: ...
+    # DXMag space group: Fm-3m (all atoms listed explicitly; written in P 1)
+
     _cell_length_a    ...
     ...
-    _symmetry_space_group_name_H-M '...'
+    _symmetry_space_group_name_H-M 'P 1'
+    _symmetry_Int_Tables_number 1
+    loop_
+    _symmetry_equiv_pos_as_xyz
+    'x, y, z'
     loop_
     _atom_site_label
     _atom_site_type_symbol
     _atom_site_fract_x  _atom_site_fract_y  _atom_site_fract_z
     El1  El  x  y  z
     ...
+
+Release v1 change: the CIFs used at inference declared the DXMag space-group
+symbol above an already complete atom list. The inference reader
+(code/predict_from_cif.py) and the QE input generator ignore the symbol, but
+standard CIF readers (pymatgen, ASE) apply its symmetry operations and create
+spurious atoms. The CIFs are therefore written in P 1, in the same format as the
+structures deposited with the predicted d-DOS; cell, species and fractional
+coordinates are unchanged, so the model input is identical.
 """
 
 import argparse
@@ -138,7 +157,10 @@ def get_category(mat_type: str, space_group: str) -> str:
 
 def build_trained_uuid_index(data_root: pathlib.Path) -> set:
     """
-    Return set of UUIDs (lowercase) that already have training CIFs.
+    Return the set of UUIDs (lowercase) of the TRAINING SET: entries whose DFT
+    d-DOS exists in data/<family>/dos_json/ (one <composition>_<uuid>.json per
+    spectrum). The DOS archive defines the training set, so membership is read
+    from it rather than from data/<family>/cif/ (release-review B2).
     UUID pattern: 8-4-4-4-12 hex characters.
     """
     uuid_re = re.compile(
@@ -148,10 +170,10 @@ def build_trained_uuid_index(data_root: pathlib.Path) -> set:
     trained = set()
     for ds in ('full_cubic', 'full_tetra', 'inverse_cubic',
                'inverse_tetra', 'half_cubic', 'half_tetra'):
-        cif_dir = data_root / ds / 'cif'
-        if cif_dir.exists():
-            for f in cif_dir.glob('*.cif'):
-                m = uuid_re.search(f.stem)
+        dos_dir = data_root / ds / 'dos_json'                 # one DFT spectrum per training entry
+        if dos_dir.exists():
+            for f in dos_dir.glob('*.json'):
+                m = uuid_re.search(f.stem)                    # UUID part of <composition>_<uuid>
                 if m:
                     trained.add(m.group(1).lower())
     return trained
@@ -160,12 +182,14 @@ def build_trained_uuid_index(data_root: pathlib.Path) -> set:
 def write_cif(path: pathlib.Path, uuid: str, composition: str,
               a, b, c, alpha, beta, gamma, space_group: str,
               elements, positions):
-    """Write a CIF file in the standard training format."""
+    """Write one CIF in space group P 1 (every atom listed; DXMag symbol kept as a comment)."""
     lines = [
         f'data_{composition}_{uuid}',
         f'# Generated from DXMag Heusler Database',
         f'# UUID: {uuid}',
         f'# Composition: {composition}',
+        # the DXMag symbol is information only: declaring it would make standard readers expand the full atom list again
+        f'# DXMag space group: {space_group} (all atoms listed explicitly; written in P 1)',
         '',
         f'_cell_length_a    {a:.6f}',
         f'_cell_length_b    {b:.6f}',
@@ -173,8 +197,11 @@ def write_cif(path: pathlib.Path, uuid: str, composition: str,
         f'_cell_angle_alpha {alpha:.3f}',
         f'_cell_angle_beta  {beta:.3f}',
         f'_cell_angle_gamma {gamma:.3f}',
-        f"_symmetry_space_group_name_H-M '{space_group}'",
-        '',
+        "_symmetry_space_group_name_H-M 'P 1'",               # explicit P 1: no symmetry expansion by any reader
+        '_symmetry_Int_Tables_number 1',
+        'loop_',                                              # the identity is the only symmetry operation
+        '_symmetry_equiv_pos_as_xyz',
+        "'x, y, z'",
         'loop_',
         '_atom_site_label',
         '_atom_site_type_symbol',

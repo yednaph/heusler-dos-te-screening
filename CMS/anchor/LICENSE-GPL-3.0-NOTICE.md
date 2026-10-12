@@ -1,9 +1,14 @@
 # Licence of this directory
 
-The first-principles workflow in this directory drives Quantum ESPRESSO and BoltzTraP2.
-`boltztrap2_patch/apply_patch.py` is a derivative of BoltzTraP2, and `extract_transport.py`
-and the SOC tools import BoltzTraP2 at run time. BoltzTraP2 is distributed under
-GPL-3.0-or-later (Madsen, Carrete, Verstraete et al.), so this directory is offered under
-the same terms rather than arguing the boundary file by file.
+Everything under `CMS/anchor/` is distributed under the GNU General Public License, version 3 or (at your option)
+any later version (SPDX: `GPL-3.0-or-later`). The full licence text is in [`COPYING`](COPYING); every script here
+carries the header `SPDX-License-Identifier: GPL-3.0-or-later`. The rest of the repository is MIT (see `../../LICENSE`).
 
-Full licence text: https://www.gnu.org/licenses/gpl-3.0.txt
+Why: the first-principles workflow in this directory drives Quantum ESPRESSO and BoltzTraP2.
+`boltztrap2_patch/apply_patch.py` is a derivative of BoltzTraP2 (it reproduces and modifies excerpts of BoltzTraP2
+24.7.2, Copyright (C) 2017-2024 G. K. H. Madsen, J. Carrete, M. J. Verstraete and co-authors), and
+`extract_transport.py` and the SOC tools import BoltzTraP2 at run time. BoltzTraP2 is distributed under
+GPL-3.0-or-later, so the whole directory is offered under the same terms rather than drawing the boundary file by file.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.

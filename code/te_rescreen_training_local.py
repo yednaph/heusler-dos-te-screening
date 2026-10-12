@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 # =============================================================================
 # te_rescreen_training_local.py -- Cutler-Mott rescreen of the TRAINING set
+#
+# SUPERSEDED, NOT USED FOR THE PAPER. The training-set screen of the study is
+# code/screen_training_pool.py (archive d-DOS per stored cell, output
+# results/screening/training_pool_screen_gapfix.csv). This earlier, per-atom
+# version (July 2026) is kept for reference only; its archive path below is the
+# original local one and must be changed before use.
+#
 # (real DFT DOS), computed ENTIRELY LOCALLY from the raw pymatgen CompleteDos
 # JSON archives (D:/Mattergen_project/HeuslerProject/DOS/PDOS_json_<family>_
 # 241229.tar.xz), instead of the HPC's processed test_targets.npy files.
@@ -148,7 +155,7 @@ def main():
 
     gmin, gmax = args.gap_window
     allm["gate_semiconductor"] = (allm.etype == "semiconductor") & allm.gap_eV.between(gmin, gmax)
-    allm["gate_reliable"] = True  # ground-truth DOS, no ensemble uncertainty
+    allm["gate_reliable"] = True  # DFT DOS, no ensemble uncertainty
     if "ML_hull" in allm.columns:
         hull_ok = (allm.ML_hull < args.hull_max) | allm.ML_hull.isna()
         form_ok = (allm.ML_formE < 0) | allm.ML_formE.isna()

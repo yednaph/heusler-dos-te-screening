@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 The authors listed in CITATION.cff; see CMS/anchor/COPYING.
 # =============================================================================
 # extract_transport.py  --  true BoltzTraP2 transport for ONE anchor material,
 #                            across a TEMPERATURE SWEEP (not a single 900K point)
 #
 #   Reads interpolation.bt2 (in the cwd), computes the CRTA transport WITH band
-#   velocities (this is the ground truth the DOS descriptors are validated
-#   against), and prints one JSON with S / sigma-over-tau / kappa_e-over-tau /
+#   velocities (the first-principles reference against which the DOS-derived
+#   indicators are assessed), and prints one JSON with S / sigma-over-tau / kappa_e-over-tau /
 #   PF-over-tau at EVERY temperature in the sweep, reported THREE ways per T:
 #     - "intrinsic"      : at the undoped (mu = DFT Fermi level) point
 #     - "reopt_doping"    : at THIS temperature's own PF-maximizing mu
-#                          ("what's the best zT achievable if you could
-#                          re-dope the sample at every operating temperature")
+#                          ("the best PF/tau reachable if the sample could be
+#                          re-doped at every operating temperature")
 #     - "fixed_doping"    : at the mu that maximises PF at --fixed_doping_T_K
 #                          (default: the highest T in the sweep), same mu used
 #                          for every T ("what a single real, fixed-doping
@@ -22,7 +24,8 @@
 #   sigma and kappa_e are reported PER RELAXATION TIME TAU (CRTA) -- this
 #   script does not, and cannot by itself, know tau. Multiply through by a
 #   tau derived from an experimental reference conductivity (separate step)
-#   to get absolute values before using these in a real zT = S^2*sigma*T/kappa.
+#   to get absolute values. No figure of merit zT = S^2*sigma*T/kappa follows from
+#   this output alone: tau and the lattice thermal conductivity are not computed.
 # =============================================================================
 import argparse, json, sys
 import numpy as np
@@ -42,14 +45,14 @@ def main():
     ap.add_argument("--comp", required=True)
     # Default sweep: 300-1200 K in 100 K steps. 1200K (not 900K) LOCKED after
     # checking real half-Heusler TE literature: state-of-the-art compositions
-    # (e.g. FeNbSb-type) report peak zT ~1.5 AT 1200K specifically -- most of
+    # (e.g. FeNbSb-type) report their measured peak zT near 1200 K -- most of
     # this project's current top-20 are half-Heuslers, so capping at 900K
     # risked understating exactly the candidates that dominate the shortlist.
     # Deliberately NOT extended further to 1500K: real decomposition data for
     # a closely analogous, well-studied family (TiNiSn decomposes at 1453K,
     # vs ZrNiSn/HfNiSn stable to 1700K+ -- a 250K+ swing from one element
     # change alone) means composition-specific stability can't be assumed by
-    # analogy for our novel, unstudied candidates, and concrete zT literature
+    # analogy for the unstudied candidates, and measured zT literature
     # data itself thins out past 1200K. Adjust via these flags if a different
     # range/step is ever needed -- decide before running the full 20-material
     # sweep, since interpolation.bt2 is deleted after each material to

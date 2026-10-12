@@ -9,7 +9,7 @@
 # Training overrides for SVNIT Aurora H100 NVL
 training:
   batch_size: 64                 # Smaller batch = better gradient quality + regularization
-  num_epochs: 200                # Fine-tuning from pre-trained weights; 200 epochs for better convergence
+  num_epochs: 200                # production runs: folds 2-4 ran 200 epochs, folds 0-1 ran 150 (per-fold configs of the export)
 
 data:
   # Data paths — dos_dir is the only path used from this config.

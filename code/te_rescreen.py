@@ -2,7 +2,7 @@
 # =============================================================================
 # te_rescreen.py  --  Stage 1.5 of the rigorous TE screening funnel
 #
-#   Re-rank the ML-predicted DOS of the novel Heuslers with CORRECT transport
+#   Re-rank the ML-predicted DOS of the prediction-set Heuslers with CORRECT transport
 #   physics, replacing the physics-inverted D34 (which rewards a DOS peak AT E_F
 #   = a metal, and buries the real degenerate semiconductors).
 #
@@ -12,7 +12,8 @@
 #   the velocities. NO second Gaussian smoothing: the predicted DOS is already
 #   smooth, and the -df/dE Fermi window is the only (physical) energy averaging.
 #
-#   Descriptors (all from L0,L1,L2 at 900 K, mu scanned +/-0.5 eV):
+#   Descriptors (all from L0,L1,L2 at 900 K, mu scanned +/-1.0 eV in 0.02 eV steps;
+#   +/-0.5 eV before 2026-08-22, reproducible with --mu_max 0.5):
 #     A  Seebeck            S = -(1/eT) L1/L0            -> max_mu |S|
 #     B  Power factor       PF = S^2 * L0                -> max_mu PF   (primary)
 #     C  Mahan-Sofo sharp   (kBT)^2 / Var(transport)     (reported)
@@ -22,7 +23,7 @@
 #   Phonon_ML) + reliability (ensemble std). kappa_L proxy = mean atomic mass.
 #
 #   LEAN START: the shortlist consensus uses A + B only; C, D, kappa_L are
-#   reported so the DFT anchor (validate_rankers.py) can decide if they add value.
+#   reported so the first-principles calculations can decide if they add value.
 #
 #   Usage:
 #     py code/te_rescreen.py --screening_root results/screening \
@@ -150,7 +151,7 @@ def classify(g_up, g_dn, gap_thr=0.15):
     # bin of DOS sitting exactly on E_F (routine in an ML-predicted DOS, and present
     # in real DFT DOS too) erased the whole gap. Demonstrated on a synthetic DOS
     # with a clean +/-0.5 eV gap plus one spike at E_F: reported 0.000 eV instead of
-    # 0.990 eV. It affected 1,240 novel-pool and 706 training-pool materials, and
+    # 0.990 eV. It affected 1,240 prediction-set and 706 training-set materials, and
     # cost ~17% of the genuinely useful (0.10-1.40 eV) population on full_cubic.
     #
     # The walk now starts from the local DOS minimum inside the SAME +/-3 bin window
@@ -300,8 +301,9 @@ def main():
 
     # ------------------------------------------------------------------
     # RECALL-FIRST ANNOTATION (2026-08-22).  Nothing below deletes a row.
-    # Measured against 1,401 BoltzTraP2 ground-truth materials, `passes_all`
-    # rejects 65 of the true top-100 by device zT.  The gates are therefore
+    # Measured against the first 1,401 BoltzTraP2-calculated materials, `passes_all`
+    # rejects 65 of the top-100 by the BoltzTraP2 ranking metric then in use (a
+    # tau-free CRTA quantity, not a measured zT).  The gates are therefore
     # emitted as GRADED ANNOTATIONS so the cut point is a downstream choice
     # rather than a hardcoded one.  `passes_all` is retained unchanged for
     # backward compatibility with earlier analyses.
@@ -318,15 +320,15 @@ def main():
                                bins=hull_edges, labels=hull_labels, right=False)
     allm["hull_tier"] = allm["hull_tier"].cat.add_categories("unknown").fillna("unknown")
 
-    # Ensemble-spread percentile.  std_fermi is POSITIVELY correlated with device
-    # zT (Spearman +0.540, n=494): the model is least certain about the best
+    # Ensemble-spread percentile.  std_fermi is POSITIVELY correlated with that
+    # BoltzTraP2 metric (Spearman +0.540, n=494): the model is least certain about the best
     # materials, because high-Seebeck DOS shapes lie furthest from the training
     # distribution.  Rejecting the top quartile therefore removes good materials
     # by construction, so this is exported as a percentile for triage priority
     # and never used to drop a row.
     allm["std_fermi_pctile"] = allm.std_fermi.rank(pct=True)
 
-    # Transport-gap tier.  Ground truth shows performance holding to ~1.4 eV, not
+    # Transport-gap tier.  The BoltzTraP2 results show performance holding to ~1.4 eV, not
     # falling off at the 1.0 eV gate ceiling; and Chasmar-Stratton puts the
     # optimum at 6-10 kBT = 0.47-0.78 eV at 900 K.  Graded, not cut.
     gap_edges  = [-np.inf, 0.10, 0.40, 1.00, 1.40, np.inf]
@@ -335,7 +337,7 @@ def main():
 
     # ---- per-ranker ranks over the FULL population, nothing filtered ----
     # Metal-contamination measured on the 90 gap-excluded materials that carry
-    # BoltzTraP2 ground truth (baseline share 6.0%), counting metals in the
+    # BoltzTraP2 results (baseline share 6.0%), counting metals in the
     # top-100 when the gap gate is switched off entirely:
     #     A_seebeck 0%   C_sharp 1%   B_pf 18%   D_dosmass 60%
     # A_seebeck and C_sharp therefore reproduce the gap gate on their own;

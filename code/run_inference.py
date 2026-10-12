@@ -8,7 +8,7 @@ numpy arrays that compute_metrics.py consumes.
 
 Outputs (in --output_dir):
   test_predictions.npy   float32, shape (N, 4002)  — predicted DOS
-  test_targets.npy       float32, shape (N, 4002)  — ground-truth DOS
+  test_targets.npy       float32, shape (N, 4002)  — DFT target d-DOS (HeuslerDB archive, processed as in training)
   test_ids.txt           one material_id per line
 
 Usage:
@@ -19,7 +19,8 @@ Usage:
         --output_dir results/full_cubic/expA/fold0/ \
         --batch_size 256
 
-MODIFY: Replace the DOSDataset and ALIGNN imports with your actual implementations.
+Produced the held-out test predictions (best-validation checkpoints) behind the reported
+accuracy metrics. Prediction-set spectra come from code/predict_from_cif.py (5 SWA models per family).
 """
 
 import argparse
@@ -51,7 +52,7 @@ except ImportError as _e:
 def load_model(checkpoint_path: Path, config: dict, device: torch.device):
     """
     Load model from checkpoint.
-    MODIFY: Adjust model creation to match your actual ALIGNN variant.
+    Rebuilds the architecture of train_hpc.py::create_model() from the per-fold config.
     """
     model_config = config["model"]
 
@@ -109,7 +110,7 @@ def load_model(checkpoint_path: Path, config: dict, device: torch.device):
 def load_test_dataset(config: dict, test_file: Path):
     """
     Load test-split dataset.
-    MODIFY: Adjust DOSDataset constructor arguments to match your implementation.
+    Uses code/dos_dataset.py with the same settings as training.
     """
     data_config = config["data"]
 

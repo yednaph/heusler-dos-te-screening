@@ -1,8 +1,11 @@
-# Full Cubic Heusler - ALIGNN DOS Training Configuration
-# Configured for HPC deployment
+# ALIGNN d-DOS training configuration: base settings, merged with configs/<family>.yaml
+# into the per-fold configuration of each production model.
 #
 # Expected training time: 10-20 hours on GPU
-# Target performance: Pearson ≥ 0.95, RMSE < 0.03
+# Held-out accuracy actually obtained is reported in the manuscript (mean per-spectrum
+# Pearson r 0.895, best-validation checkpoints).
+# Configured but NOT executed in the production runs: data augmentation, early stopping
+# and learning-rate warm-up (see README.md, "Known implementation details").
 
 #==============================================================================
 # Model Architecture

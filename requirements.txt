@@ -1,19 +1,34 @@
-# Analysis, screening and figures (verified: Python 3.8.10)
+# Two environments were used; the versions are those recorded in each.
+#
+# (1) Analysis, screening, figures and the first-principles driver: workstation, Python 3.8.10
+#     (installed there: matplotlib 3.7.5, PyYAML 5.3.1). Runs code/te_rescreen.py, code/screen_training_pool.py,
+#     code/audit_dft_gaps.py, code/paper/, paper/manuscript_v1/, figkit/ and CMS/anchor/.
+#     `pip install -r requirements.txt` installs this part.
 numpy==1.24.4
 pandas==2.0.3
 scipy==1.10.1
-matplotlib>=3.7,<3.9
-openpyxl==3.1.5
+matplotlib>=3.7,<3.9       # figures also need the Liberation Sans font
+openpyxl==3.1.5            # reads the DXMag .xlsx metadata
 PyYAML>=5.3
-# First-principles transport (CMS/anchor/): BoltzTraP2==24.7.2 plus Quantum ESPRESSO 7.1 (not pip-installable)
-# BoltzTraP2==24.7.2
-# ALIGNN d-DOS model (train_hpc.py, code/run_inference.py), versions recorded on the training cluster
-# (Python 3.11.15, CUDA 12.1); pymatgen version was not recorded:
+# First-principles transport (CMS/anchor/), same workstation; not needed to analyse the shipped files:
+# spglib==2.0.2            # symmetrisation and primitive-cell reduction in CMS/anchor/generate_qe_inputs.py
+# BoltzTraP2==24.7.2       # plus CMS/anchor/boltztrap2_patch/apply_patch.py for spin-orbit runs
+# Quantum ESPRESSO 7.1 (pw.x) is not pip-installable.
+#
+# (2) ALIGNN d-DOS model -- training, inference and metrics: GPU cluster, Python 3.11.15, CUDA 12.1.
+#     Runs train_hpc.py, code/dos_dataset.py, code/create_splits.py, code/create_pretrain_dataset.py,
+#     code/run_inference.py, code/predict_from_cif.py, code/compute_metrics.py and make_dos_export.py.
+#     Versions from the pip freeze of the training environment recorded in the model export (2026-07-19):
 # torch==2.2.2+cu121
 # dgl==1.1.3+cu121
 # alignn==2026.4.1
 # jarvis-tools==2026.4.2
+# pymatgen==2026.3.23      # with pymatgen-core==2026.4.7
+# scikit-learn==1.8.0      # create_splits.py; optional classification metrics in compute_metrics.py
+# spglib==2.7.0
 # numpy==1.26.4
-# pymatgen
-# tqdm
-# tensorboard
+# scipy==1.17.1
+# pandas==3.0.2
+# PyYAML==6.0.3
+# tqdm==4.67.3
+# tensorboard==2.20.0

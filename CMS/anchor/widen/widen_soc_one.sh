@@ -1,4 +1,6 @@
 #!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 The authors listed in CITATION.cff; see CMS/anchor/COPYING.
 # widen copy (2026-10-08): identical to recovery/recover_soc_one.sh except output transport_w1.json, +/-1.0 eV doping window, widen/ logs+scratch.
 # Same text-recovery, but for the SOC campaign runs (soc_campaign/runs/<rd>).
 # Those were produced with the same stale-XML bug, so their transport.json used
@@ -11,6 +13,7 @@ R=$A/soc_campaign/runs/$rd
 OUT=$R/transport_w1.json
 [ -s "$OUT" ] && { echo "SKIP $rd"; exit 0; }
 [ -s "$R/nscf.out" ] || { echo "FAIL $rd no nscf.out"; exit 1; }
+mkdir -p "$A/widen/logs" "$A/widen/scratch"   # log and scratch folders (mktemp below needs the scratch parent)
 W=$(mktemp -d "$A/widen/scratch/soc_${rd}.XXXXXX") || exit 1
 trap 'rm -rf "$W"' EXIT
 {

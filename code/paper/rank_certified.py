@@ -2,7 +2,7 @@
 """
 rank_certified.py -- rank the certified compounds under the conventions agreed for the paper (2026-10-08).
 
-CONVENTIONS (user decision, see memory project_paper_decisions / SESSION_CONTEXT 2026-10-08)
+CONVENTIONS (agreed by the authors for the paper, 2026-10-08)
   * fixed carrier concentration: best PF/tau among doping levels with |n| <= 1e20 or <= 1e21 cm^-3,
     p-type (holes) and n-type (electrons) ranked separately -- a real sample is doped one way;
   * headline temperature 900 K; best over 300-1200 K kept only as an upper reference;
