@@ -22,7 +22,7 @@ source. The DFT reference spectra of the HeuslerDB electronic-DOS dataset are **
 ## 2. The predicted d-DOS record (Zenodo)
 
 *Predicted spin-resolved d-orbital densities of states for 54,978 DXMag Heusler entries*, version 1.0.0,
-doi:[10.5281/zenodo.23315204](https://doi.org/10.5281/zenodo.23315204), CC BY 4.0. It holds the machine-learned d-DOS of the
+doi:[10.5281/zenodo.23329059](https://doi.org/10.5281/zenodo.23329059), CC BY 4.0. It holds the machine-learned d-DOS of the
 prediction set (five-model mean and spread), the held-out predictions of the same models for the 51,257 training-set entries,
 the prediction-set screening table, the input structures in space group P 1, an index of DXMag identifiers and metadata, and
 the 30 SWA model weights with their per-fold configurations (`model_assets.zip`). It contains no DFT spectra.

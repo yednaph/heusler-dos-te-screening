@@ -11,7 +11,7 @@ Only data produced in this study, plus DXMag identifiers and metadata (CC BY 4.0
   * omitted: the screening indicators and labels whose training-set values were computed from the DFT d-DOS of
              the HeuslerDB electronic-DOS archive (NIMS, doi:10.48505/nims.5794). They are listed in OMITTED below.
              The prediction-set values of the same indicators are in the Zenodo record (screen_prediction_set.csv,
-             doi:10.5281/zenodo.23315204); the training-set values can be recomputed from the NIMS archive with
+             doi:10.5281/zenodo.23329059); the training-set values can be recomputed from the NIMS archive with
              code/screen_training_pool.py.
 
 INPUT   results/paper_analysis/paper_dataset.pkl     (code/paper/build_paper_dataset.py)

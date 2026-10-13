@@ -117,5 +117,5 @@ pickle are omitted because their training-set values were computed from the DFT 
 `SCREEN_dft_e_lo`, `SCREEN_dft_e_hi`.
 
 For the prediction set, the same indicators (from the predicted d-DOS) are in `screen_prediction_set.csv` of the Zenodo record
-(doi:10.5281/zenodo.23315204; join on `UUID`). For the training set they can be recomputed from the NIMS archive with
+(doi:10.5281/zenodo.23329059; join on `UUID`). For the training set they can be recomputed from the NIMS archive with
 `code/screen_training_pool.py` (`DATA.md`, Section 4). Their meanings are given in the Zenodo record's README.

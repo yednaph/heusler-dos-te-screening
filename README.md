@@ -6,7 +6,7 @@ preparation).
 
 - **Code:** this repository, release v1.0.0 (https://github.com/yednaph/heusler-dos-te-screening/releases/tag/v1.0.0).
 - **Data:** the machine-learned d-DOS of the prediction set, the held-out predictions, the prediction-set screening table, the
-  input structures and the 30 model weights are deposited at Zenodo, doi:[10.5281/zenodo.23315204](https://doi.org/10.5281/zenodo.23315204)
+  input structures and the 30 model weights are deposited at Zenodo, doi:[10.5281/zenodo.23329059](https://doi.org/10.5281/zenodo.23329059)
   (CC BY 4.0), as one archive `heusler_predicted_ddos_v1.zip`. `DATA.md` maps its files onto the paths used here.
 
 The study starts from the DXMag Heusler database, built for magnetic functionality, and tests a density-of-states (DOS) screen
@@ -168,7 +168,7 @@ These describe the code as it was run; the trained models are not changed.
 
 MIT, except everything under `CMS/anchor/`, which is GPL-3.0-or-later because it derives from or imports BoltzTraP2 (full text
 in `CMS/anchor/COPYING`). Please cite the article (`CITATION.cff`; manuscript in preparation), the data record
-(doi:10.5281/zenodo.23315204) and the DXMag sources:
+(doi:10.5281/zenodo.23329059) and the DXMag sources:
 
 - E. Xiao and T. Tadano, High-throughput computational screening of Heusler compounds with phonon considerations for enhanced
   material discovery, *Acta Mater.* **297**, 121312 (2025), doi:10.1016/j.actamat.2025.121312;

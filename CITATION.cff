@@ -79,7 +79,7 @@ references:
       name: Zenodo
     version: "1.0.0"
     year: 2026
-    doi: "10.5281/zenodo.23315204"
+    doi: "10.5281/zenodo.23329059"
     license: CC-BY-4.0
     notes: "Distributed as one archive, heusler_predicted_ddos_v1.zip; see DATA.md."
   - type: article
