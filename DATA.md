@@ -27,10 +27,11 @@ prediction set (five-model mean and spread), the held-out predictions of the sam
 the prediction-set screening table, the input structures in space group P 1, an index of DXMag identifiers and metadata, and
 the 30 SWA model weights with their per-fold configurations (`model_assets.zip`). It contains no DFT spectra.
 
-The record is distributed as one archive, `heusler_predicted_ddos_v1.zip`. Unzip it and check it:
+The record holds the files as separate downloads; Zenodo's "Download all" button fetches them together. Put them in one
+folder, here called `heusler_predicted_ddos_v1/`, and check them:
 
 ```bash
-unzip heusler_predicted_ddos_v1.zip && (cd heusler_predicted_ddos_v1 && sha256sum -c SHA256SUMS.txt)
+cd heusler_predicted_ddos_v1 && sha256sum -c SHA256SUMS.txt
 ```
 
 ### Record files and the paths the scripts expect

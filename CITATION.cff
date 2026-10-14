@@ -29,18 +29,14 @@ authors:
     given-names: Shivam
     affiliation: "Department of Physics, Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
     orcid: "https://orcid.org/0009-0005-1403-4484"
-  - family-names: Pandey
-    given-names: Himanshu
-    affiliation: "Department of Physics, Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
-    orcid: "https://orcid.org/0000-0002-7380-366X"
   - family-names: Dixit
     given-names: Rahul
     affiliation: "Department of Artificial Intelligence, Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
     orcid: "https://orcid.org/0000-0001-6121-8423"
-  - family-names: Ghosh
-    given-names: Ayana
-    affiliation: "Department of Physics, Indian Institute of Technology Madras, Chennai, India"
-    orcid: "https://orcid.org/0000-0002-0432-3689"
+  - family-names: Pandey
+    given-names: Himanshu
+    affiliation: "Department of Physics, Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
+    orcid: "https://orcid.org/0000-0002-7380-366X"
 preferred-citation:
   type: article
   title: "High-throughput screening of Heusler alloys for thermoelectrics combining machine-learned densities of states and first-principles transport"
@@ -51,37 +47,31 @@ preferred-citation:
       given-names: Shivam
       affiliation: "Department of Physics, Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
       orcid: "https://orcid.org/0009-0005-1403-4484"
-    - family-names: Pandey
-      given-names: Himanshu
-      affiliation: "Department of Physics, Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
-      orcid: "https://orcid.org/0000-0002-7380-366X"
     - family-names: Dixit
       given-names: Rahul
       affiliation: "Department of Artificial Intelligence, Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
       orcid: "https://orcid.org/0000-0001-6121-8423"
-    - family-names: Ghosh
-      given-names: Ayana
-      affiliation: "Department of Physics, Indian Institute of Technology Madras, Chennai, India"
-      orcid: "https://orcid.org/0000-0002-0432-3689"
+    - family-names: Pandey
+      given-names: Himanshu
+      affiliation: "Department of Physics, Sardar Vallabhbhai National Institute of Technology (SVNIT), Surat, India"
+      orcid: "https://orcid.org/0000-0002-7380-366X"
 references:
   - type: dataset
     title: "Predicted spin-resolved d-orbital densities of states for 54,978 DXMag Heusler entries"
     authors:
       - family-names: Randive
         given-names: Shivam
-      - family-names: Pandey
-        given-names: Himanshu
       - family-names: Dixit
         given-names: Rahul
-      - family-names: Ghosh
-        given-names: Ayana
+      - family-names: Pandey
+        given-names: Himanshu
     publisher:
       name: Zenodo
     version: "1.0.0"
     year: 2026
     doi: "10.5281/zenodo.23329059"
     license: CC-BY-4.0
-    notes: "Distributed as one archive, heusler_predicted_ddos_v1.zip; see DATA.md."
+    notes: "Distributed as individual files with README.md and SHA256SUMS.txt; see DATA.md."
   - type: article
     title: "High-throughput computational screening of Heusler compounds with phonon considerations for enhanced material discovery"
     authors:

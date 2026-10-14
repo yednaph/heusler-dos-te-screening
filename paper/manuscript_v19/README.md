@@ -1,7 +1,7 @@
 # paper/manuscript_v19: figure, analysis and literature code of the current manuscript
 
 Code behind *High-throughput screening of Heusler alloys for thermoelectrics combining machine-learned densities of states and
-first-principles transport* (S. Randive, H. Pandey, R. Dixit, A. Ghosh; manuscript in preparation), copied from the manuscript
+first-principles transport* (S. Randive, R. Dixit, H. Pandey; manuscript in preparation), copied from the manuscript
 build. It supersedes `../manuscript_v1/`, which holds the code of an earlier draft; the scripts for the Supplementary figures and
 tables did not change and are used from there (table below).
 

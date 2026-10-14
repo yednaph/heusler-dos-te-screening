@@ -1,13 +1,13 @@
 # High-throughput screening of Heusler alloys for thermoelectrics
 
 Code and first-principles results for the manuscript *High-throughput screening of Heusler alloys for thermoelectrics combining
-machine-learned densities of states and first-principles transport* (S. Randive, H. Pandey, R. Dixit, A. Ghosh; manuscript in
+machine-learned densities of states and first-principles transport* (S. Randive, R. Dixit, H. Pandey; manuscript in
 preparation).
 
 - **Code:** this repository, release v1.0.0 (https://github.com/yednaph/heusler-dos-te-screening/releases/tag/v1.0.0).
 - **Data:** the machine-learned d-DOS of the prediction set, the held-out predictions, the prediction-set screening table, the
   input structures and the 30 model weights are deposited at Zenodo, doi:[10.5281/zenodo.23329059](https://doi.org/10.5281/zenodo.23329059)
-  (CC BY 4.0), as one archive `heusler_predicted_ddos_v1.zip`. `DATA.md` maps its files onto the paths used here.
+  (CC BY 4.0), as individual files. `DATA.md` maps them onto the paths used here.
 
 The study starts from the DXMag Heusler database, built for magnetic functionality, and tests a density-of-states (DOS) screen
 for thermoelectrics against first-principles transport:
